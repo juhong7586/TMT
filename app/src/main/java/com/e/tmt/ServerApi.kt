@@ -6,7 +6,7 @@ import retrofit2.http.*
 
 class ServerApi {
     companion object{
-        val DOMAIN = "http://34.64.143.75:1880/"
+        val DOMAIN = "https://safelygogoschool.app/"
     }
 }
 
