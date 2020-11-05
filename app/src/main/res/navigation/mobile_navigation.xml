@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_home">
+
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.e.tmt.MainActivity"
+        android:label="@string/setting"
+        tools:layout="@layout/activity_main3" />
+
+    <fragment
+        android:id="@+id/navigation_cardmaker"
+        android:name="com.e.tmt.card"
+        android:label="@string/card_maker"
+        tools:layout="@layout/activity_card" />
+
+    <fragment
+        android:id="@+id/navigation_lamp"
+        android:name="com.e.tmt.lamp"
+        android:label="@string/lamp"
+        tools:layout="@layout/activity_lamp" />
+
+    <fragment
+        android:id="@+id/navigation_cabinet"
+        android:name="com.e.tmt.cabinet"
+        android:label="@string/cabinet"
+        tools:layout="@layout/activity_cabinet" />
+</navigation>

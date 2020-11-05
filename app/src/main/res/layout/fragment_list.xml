@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ListFragment">
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="16dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="-114dp">
+
+    <TableLayout
+        android:id="@+id/tableLayout"
+        android:layout_width="359dp"
+        android:layout_height="29dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:stretchColumns="3"
+        app:layout_constraintBottom_toTopOf="@id/memoList"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TableRow
+            android:id="@+id/FirstRow"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="30dp"
+                android:layout_column="1"
+                android:layout_gravity="center"
+                android:background="@color/Hampton"
+                android:fontFamily="@font/paybooc_bold"
+                android:gravity="center_horizontal"
+                android:paddingLeft="10dip"
+                android:paddingTop="6dp"
+                android:paddingRight="10dip"
+                android:text="@string/lampRow1"
+                android:textAlignment="center"
+                android:textColor="@color/BlueDiamond"
+                />
+
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="30dp"
+                android:layout_column="2"
+                android:layout_gravity="center"
+                android:background="@color/Hampton"
+                android:fontFamily="@font/paybooc_bold"
+                android:gravity="center_horizontal"
+                android:paddingLeft="10dip"
+                android:paddingTop="6dp"
+                android:paddingRight="10dip"
+                android:layout_marginRight="2dp"
+                android:text="@string/textNo"
+                android:textAlignment="center"
+                android:textColor="@color/BlueDiamond"
+                android:layout_marginEnd="2dp" />
+
+            <TextView
+                android:layout_width="176dp"
+                android:layout_height="30dp"
+                android:layout_column="3"
+                android:background="@color/Hampton"
+                android:fontFamily="@font/paybooc_bold"
+                android:gravity="center_horizontal"
+                android:paddingTop="6dp"
+                android:text="@string/textTitle"
+                android:textAlignment="center"
+                android:textColor="@color/BlueDiamond" />
+
+            <TextView
+                android:layout_width="90dp"
+                android:layout_height="30dp"
+                android:layout_column="4"
+                android:layout_gravity="center"
+                android:background="@color/Hampton"
+                android:fontFamily="@font/paybooc_bold"
+                android:gravity="center_horizontal"
+                android:paddingLeft="10dip"
+                android:paddingTop="6dp"
+                android:paddingRight="10dip"
+                android:text="@string/lampRow2"
+                android:textAlignment="center"
+                android:textColor="@color/BlueDiamond"
+                />
+
+        </TableRow>
+    </TableLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/memoList"
+            android:layout_width="355dp"
+            android:layout_height="282dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.466"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/detailButton"
+            tools:layout_conversion_absoluteHeight="194dp"
+            tools:layout_conversion_absoluteWidth="411dp" />
+
+
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="21dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.304"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/memoList">
+
+        <ImageButton
+            android:id="@+id/deleteButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="2dp"
+            android:contentDescription="@string/deletebutton"
+            android:orientation="horizontal"
+            android:src="@drawable/ic_noun_cross_85544"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/editButton"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tableLayout"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <ImageButton
+            android:id="@+id/addButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="2dp"
+            android:contentDescription="@string/plusbutton"
+            android:orientation="horizontal"
+            android:src="@drawable/ic_noun_plus_85541"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/lightOn"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/editButton"
+            app:layout_constraintTop_toBottomOf="@+id/tableLayout"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <ImageButton
+            android:id="@+id/editButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="90dp"
+            android:layout_marginLeft="90dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginRight="0dp"
+            android:contentDescription="@string/editbutton"
+            android:orientation="horizontal"
+            android:src="@drawable/ic_noun_pencil_85787"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/addButton"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/deleteButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tableLayout"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <ImageButton
+            android:id="@+id/lightOn"
+            style="@android:style/Widget.Holo.ImageButton"
+            android:layout_width="57dp"
+            android:layout_height="57dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            android:background="#FFEB3B"
+            android:contentDescription="@string/sendtolamp"
+            android:focusableInTouchMode="true"
+            android:orientation="horizontal"
+            android:paddingLeft="7dp"
+            android:paddingTop="2dp"
+            android:paddingRight="7dp"
+            android:paddingBottom="0dp"
+            android:src="@drawable/ic_noun_bulb_3408498"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/addButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tableLayout"
+            app:layout_constraintVertical_bias="0.0" />
+
+
+    </LinearLayout>
+
+        <Button
+            android:id="@+id/detailButton"
+            android:layout_width="80dp"
+            android:layout_height="62dp"
+
+            android:text="세부정보 보기"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#240335</color>
+    <color name="colorPrimaryDark">#434343</color>
+    <color name="colorAccent">#187964</color>
+    <color name="Apricot">#F4837D</color>
+    <color name="Salomie">#FCD575</color>
+    <color name="Hampton">#e2dca9</color>
+    <color name="BlueDiamond">#4d0573</color>
+    <color name="colorMindaro">#B7BC5F</color>
+    <color name="colorMyDark">#303030</color>
+    <color name="colorOlive">#51532A</color>
+
+</resources>

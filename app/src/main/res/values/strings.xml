@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">우리쌤 테이블</string>
+    <string name="title_home"></string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="hi">image</string>
+    <string name="homeTitle">우리반 선생님의 \n똑똑한 메이커 테이블</string>
+
+    <string name="card_maker">카드 만들기</string>
+    <string name="lamp">메모하기</string>
+    <string name="cabinet">물건 찾기</string>
+    <string name="setting">설정</string>
+    <string name="lampRow1">선택</string>
+    <string name="lampRow2">작성시각</string>
+    <string name="lampRow3">메모</string>
+    <string name="check">CheckBox</string>
+    <string name="deletebutton">deletebutton</string>
+    <string name="plusbutton">plusbutton</string>
+    <string name="editbutton">editbutton</string>
+    <string name="sendtolamp">SendtoLamp</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="textNo">번호</string>
+    <string name="datetime">datetime</string>
+    <string name="content">content</string>
+    <string name="number">number</string>
+    <string name="title1">우리반 선생님의</string>
+    <string name="title2">똑똑한 메이커 테이블</string>
+    <string name="card">카드 만들기</string>
+    <string name="memo">메모 램프</string>
+    <string name="cabinet2">반짝 서랍장</string>
+    <string name="textTitle">제목</string>
+    <string name="addMemoContent">내용</string>
+    <string name="addMemoTtiel">제목</string>
+    <string name="saveButton">저장</string>
+    <string name="backButton">돌아가기</string>
+</resources>

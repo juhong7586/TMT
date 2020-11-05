@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".lamp"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/text_notifications"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="120dp"
+            android:layout_marginRight="120dp"
+            android:fontFamily="@font/paybooc_extrabold"
+            android:gravity="center_horizontal"
+            android:text="@string/lamp"
+            android:textAlignment="center"
+            android:textColor="@color/BlueDiamond"
+            android:textSize="40sp"
+            app:layout_constraintBottom_toTopOf="@id/tableLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_conversion_absoluteHeight="57dp"
+            tools:layout_conversion_absoluteWidth="178dp" />
+
+
+        <fragment
+            android:id="@+id/fragmentLayout"
+            android:name="com.e.tmt.ListFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:layout_constraintBottom_toTopOf="@+id/memoList"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/linearLayout"
+            tools:layout="@layout/fragment_list" />
+
+
+        <!--FrameLayout
+            android:id="@+id/frameLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </FrameLayout-->
+
+
+    </LinearLayout>
+</ScrollView>

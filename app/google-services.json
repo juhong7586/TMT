@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "409862614116",
+    "firebase_url": "https://teachermakesit.firebaseio.com",
+    "project_id": "teachermakesit",
+    "storage_bucket": "teachermakesit.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:409862614116:android:6083539ba752ee215a4371",
+        "android_client_info": {
+          "package_name": "com.e.tmt"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "409862614116-gs9c2924bo2ekf8elfiaae5178kb343g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCc3ym_L6QArUED7rqNRIBrsE0FdUFqTSI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "409862614116-gs9c2924bo2ekf8elfiaae5178kb343g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
