@@ -1,5 +1,6 @@
 package com.e.tmt
 
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -11,12 +12,16 @@ class ServerApi {
 }
 
 interface TmtService {
-    @GET("memo")
+
+    @GET("memos")
     fun getMemo(): Call<List<Memo>>
 
-    //나중
-    //@GET("memo/{id}")
-    //fun myObjectById(@Path("id")) id: int?, @Query("a_param") aParam: String?): Call<List<Memo>>
+
+    @GET("memo/{title}")
+    fun getOneMemo(@Path("title") title: String): Call<Memo>
+
+    @GET("last")
+    fun getLastMemo(): Call<List<Memo>>
 
     //지금
     //@Headers("accept: application/json", "Content-Type: application/json")
@@ -26,5 +31,26 @@ interface TmtService {
         @Field("editor") editor: String,
         @Field("title") title: String,
         @Field("content") content: String
-    ): Call<Result>
+    ): Call<ResponseBody>
+
+
+    @FormUrlEncoded
+    @POST("memo/send")
+    fun sendMemo(
+        @Field("selected") selected: List<Int>
+    ): Call<ResponseBody>
+
+    @HTTP(path="memo", method="DELETE", hasBody = true)
+    fun deleteMemo(
+        @Body Map: List<Int>
+    ): Call<ResponseBody>
+
+    @PUT("memo/{id}")
+   // @FormUrlEncoded
+    fun putMemo(
+        @Path("id") id: Int,
+        @Body memo: Memo
+    ): Call<ResponseBody>
+
+
 }

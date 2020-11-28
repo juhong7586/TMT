@@ -34,4 +34,19 @@
     <string name="addMemoTtiel">제목</string>
     <string name="saveButton">저장</string>
     <string name="backButton">돌아가기</string>
+    <string name="addMemoEditor">쓰는 사람</string>
+    <string name="addTitle">메모 추가</string>
+    <string name="title">title</string>
+    <string name="editTextTitle">메모 수정</string>
+    <string name="name">Name</string>
+    <string name="editTitle">Title</string>
+    <string name="detailButton">세부정보 보기</string>
+    <string name="onepagetitle">메모내용</string>
+    <string name="onetexttitle">제목</string>
+    <string name="onetextcontent">세부 내용</string>
+    <string name="goback">돌아가기</string>
+    <string name="edittexttitle">메모수정</string>
+    <string name="content1">Content</string>
+    <string name="memolamp">메모램프</string>
+
 </resources>

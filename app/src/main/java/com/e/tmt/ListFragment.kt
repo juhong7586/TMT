@@ -11,17 +11,24 @@ import kotlinx.android.synthetic.main.fragment_list.view.*
 
 class ListFragment : Fragment() {
     var activityLamp: lamp? = null
+    var adapter = CustomAdapter()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater!!.inflate(R.layout.fragment_list, container, false)
-        view.detailButton.setOnClickListener{ activityLamp?.goDetail() }
+        val view = inflater.inflate(R.layout.fragment_list, container, false)
+
+        activityLamp?.buttonEffect2(view.addButton)
+        activityLamp?.buttonEffect2(view.deleteButton)
+        activityLamp?.buttonEffect2(view.lightOn)
+
         view.addButton.setOnClickListener{activityLamp?.goAdd()}
+        view.deleteButton.setOnClickListener{ activityLamp?.deleteMemo()}
+        view.lightOn.setOnClickListener{activityLamp?.sendMemo()}
         return view
     }
-
 
     override fun onAttach(context: Context) {
         super.onAttach(context)

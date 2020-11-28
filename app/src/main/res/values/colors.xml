@@ -10,5 +10,8 @@
     <color name="colorMindaro">#B7BC5F</color>
     <color name="colorMyDark">#303030</color>
     <color name="colorOlive">#51532A</color>
-
+    <color name="Astronaut">#29276f</color>
+    <color name="myWhite">#F5F5F5</color>
+    <color name="Marvelous">#f28397</color>
+    <color name="Viking">#81b4db</color>
 </resources>

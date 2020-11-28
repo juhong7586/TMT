@@ -4,114 +4,109 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:animateLayoutChanges="false"
-    android:animationCache="false"
     android:background="@color/myWhite"
-    tools:context=".AddMemoFragment">
 
+    tools:context=".EditFragment">
 
     <TextView
-        android:id="@+id/addTitle"
+        android:id="@+id/editTextTitle"
         android:layout_width="190dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:fontFamily="@font/uhbeenamsoyoung_bold"
-        android:text="메모추가"
-        android:textColor="#E91E63"
-        android:textSize="38sp"
-        android:textAlignment="center"
         android:gravity="center_horizontal"
+        android:textAlignment="center"
+        android:fontFamily="@font/uhbeenamsoyoung_bold"
+        android:text="@string/edittexttitle"
+        android:textColor="#656565"
+        android:textSize="38sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintHorizontal_bias="0.1"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
+
 
     <EditText
-        android:id="@+id/addMemoEditor"
+        android:id="@+id/editEditor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:autofillHints="@string/addMemoEditor"
-        android:editable="true"
+        android:layout_marginTop="32dp"
+        android:textSize = "15sp"
+
         android:fontFamily="@font/paybooc_font"
-        android:hint="@string/addMemoEditor"
-        android:inputType="text"
-        android:text=""
-        android:textSize="15sp"
+        android:inputType="textPersonName"
+        android:text="@string/name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addTitle" />
-
+        app:layout_constraintTop_toBottomOf="@+id/editTextTitle"
+        android:importantForAutofill="no" />
 
     <EditText
-        android:id="@+id/addMemoTitle"
+        android:id="@+id/editTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:autofillHints="@string/addMemoTtiel"
-        android:editable="true"
+        android:textSize = "15sp"
+
         android:fontFamily="@font/paybooc_font"
-        android:hint="@string/addMemoTtiel"
-        android:inputType="text"
-        android:text=""
-        android:textSize="15sp"
+        android:inputType="textPersonName"
+        android:text="@string/editTitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addMemoEditor" />
-
+        app:layout_constraintTop_toBottomOf="@+id/editEditor"
+        android:importantForAutofill="no" />
 
     <EditText
-        android:id="@+id/addMemoContent"
+        android:id="@+id/editContent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:autoLink="all"
-        android:autofillHints="@string/addMemoContent"
-        android:editable="true"
+        android:textSize = "15sp"
         android:fontFamily="@font/paybooc_font"
-        android:gravity="start|top"
-        android:hint="@string/addMemoContent"
+        android:gravity="top|start"
         android:inputType="textMultiLine|textPersonName"
-        android:lines="10"
-        android:text=""
-        android:textSize="15sp"
+        android:minLines="10"
+        android:text="@string/content1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addMemoTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/editTitle"
+        android:importantForAutofill="no" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="21dp"
+        android:layout_marginTop="15dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addMemoContent">
+        app:layout_constraintTop_toBottomOf="@id/editContent">
 
         <ImageButton
-            android:id="@+id/backButton"
+            android:id="@+id/editBackButton"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:layout_marginRight="100dp"
             android:orientation="horizontal"
             android:scaleType="fitCenter"
             android:background="@color/myWhite"
             android:src="@drawable/back2"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent" />
 
         <ImageButton
-            android:id="@+id/saveButton"
+            android:id="@+id/editSaveButton"
             android:layout_width="70dp"
             android:layout_height="70dp"
+            android:layout_marginStart="150dp"
+            android:layout_marginLeft="150dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
             android:orientation="horizontal"
             android:scaleType="fitCenter"
             android:background="@color/myWhite"
-            android:src="@drawable/save1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:src="@drawable/save2"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="parent"
+            tools:layout_editor_absoluteY="151dp" />
+
     </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
