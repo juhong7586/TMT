@@ -21,13 +21,13 @@
 
     <fragment
         android:id="@+id/navigation_lamp"
-        android:name="com.e.tmt.lamp"
+        android:name="com.e.tmt.memo.lamp"
         android:label="@string/lamp"
         tools:layout="@layout/activity_lamp" />
 
     <fragment
         android:id="@+id/navigation_cabinet"
-        android:name="com.e.tmt.cabinet"
+        android:name="com.e.tmt.cabinet.cabinet"
         android:label="@string/cabinet"
         tools:layout="@layout/activity_cabinet" />
 </navigation>

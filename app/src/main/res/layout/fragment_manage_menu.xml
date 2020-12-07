@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".cabinet.ManageMenuFragment"
+    android:background="#ffffff">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/manageTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-10dp"
+        android:fontFamily="@font/uhbeenamsoyoung_bold"
+        android:gravity="center_horizontal"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:shadowColor="@color/DaisyBush"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="5"
+        android:text="@string/manageTitle"
+        android:textAlignment="center"
+        android:textColor="@color/DaisyBush"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_conversion_absoluteHeight="57dp"
+        tools:layout_conversion_absoluteWidth="178dp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center_horizontal"
+            android:paddingTop="50dp">
+
+        <Button
+            android:id="@+id/manage1"
+            android:layout_width="200dp"
+            android:layout_height="90dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/b21"
+            android:contentDescription="@string/findItem"
+            android:fontFamily="@font/uhbeenamsoyoung_bold"
+            android:paddingTop="15dp"
+            android:paddingBottom="20dp"
+            android:scaleType="fitCenter"
+            android:shadowColor="@color/colorPrimaryDark"
+            android:shadowDx="1"
+            android:shadowDy="2"
+            android:shadowRadius="1.5"
+            android:text="사물함"
+            android:textColor="@color/DaisyBush"
+            android:textSize="27sp" />
+
+        <Button
+            android:id="@+id/manage2"
+            android:layout_width="200dp"
+            android:layout_height="90dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/b21"
+            android:shadowColor="@color/colorPrimaryDark"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="1.5"
+            android:contentDescription="@string/findItem"
+            android:fontFamily="@font/uhbeenamsoyoung_bold"
+            android:paddingTop="15dp"
+            android:paddingBottom="20dp"
+            android:scaleType="fitCenter"
+            android:text="공간"
+            android:textColor="@color/DaisyBush"
+            android:textSize="27sp" />
+
+        <Button
+            android:id="@+id/manage3"
+            android:layout_width="200dp"
+            android:layout_height="90dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/b21"
+            android:shadowColor="@color/colorPrimaryDark"
+            android:shadowDx="1"
+            android:shadowDy="1"
+            android:shadowRadius="1.5"
+            android:contentDescription="@string/findItem"
+            android:fontFamily="@font/uhbeenamsoyoung_bold"
+            android:paddingTop="15dp"
+            android:paddingBottom="20dp"
+            android:scaleType="fitCenter"
+            android:text="물건"
+            android:textColor="@color/DaisyBush"
+            android:textSize="27sp" />
+</LinearLayout>
+
+
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

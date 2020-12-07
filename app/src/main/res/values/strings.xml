@@ -48,5 +48,11 @@
     <string name="edittexttitle">메모수정</string>
     <string name="content1">Content</string>
     <string name="memolamp">메모램프</string>
+    <string name="findItem">물건찾기</string>
+    <string name="whereIsIt">그게 어디있더라...</string>
+    <string name="where">그게 어디 있더라...?</string>
+    <string name="manage">관리하기</string>
+    <string name="cabinetTitle">그 서랍장</string>
+    <string name="manageTitle">관리하기</string>
 
 </resources>

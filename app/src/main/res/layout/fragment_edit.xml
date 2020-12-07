@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/myWhite"
 
-    tools:context=".EditFragment">
+    tools:context=".memo.EditFragment">
 
     <TextView
         android:id="@+id/editTextTitle"

@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".cabinet.CabinetListFragment"
+    android:background="@color/myWhite">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/manageTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp"
+            android:fontFamily="@font/paybooc_bold"
+            android:gravity="center_horizontal"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:text="서랍장 관리"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            app:layout_constraintHorizontal_bias="0.1"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_conversion_absoluteHeight="57dp"
+            tools:layout_conversion_absoluteWidth="178dp"
+            android:layout_marginStart="10dp" />
+
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/cabinetList"
+            android:layout_width="match_parent"
+            android:layout_height="330dp"
+            android:nestedScrollingEnabled="false"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/manageTitle"
+            tools:layout_conversion_absoluteHeight="194dp"
+            tools:layout_conversion_absoluteWidth="411dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+        <LinearLayout
+
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:fontFamily="@font/paybooc_medium"
+            android:textSize="20sp"
+            android:orientation="horizontal"
+            android:background="@drawable/back_border2"
+            android:layout_gravity="center_horizontal"
+            android:visibility="gone">
+            <TextView
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="선택한 서랍장:"
+                android:paddingLeft="10dp"
+                android:layout_gravity="center_horizontal|center_vertical" />
+            <TextView
+                android:id="@+id/theStuff"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="예시"
+                android:paddingRight="15dp"
+                android:layout_gravity="center_horizontal|center_vertical"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="40dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cabinetList">
+
+            <ImageButton
+                android:id="@+id/backButton1"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@color/myWhite"
+                android:src="@drawable/back2"
+                android:orientation="horizontal"
+                android:layout_marginRight="110dp"
+                android:scaleType="fitCenter"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <ImageButton
+                android:id="@+id/deleteButton1"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginEnd="5dp"
+                android:background="@color/myWhite"
+                android:contentDescription="@string/deletebutton"
+                android:focusable="true"
+                android:orientation="horizontal"
+                android:scaleType="fitCenter"
+                android:src="@drawable/delete3"
+                android:layout_marginRight="5dp" />
+
+            <ImageButton
+                android:id="@+id/addButton1"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@color/myWhite"
+                android:layout_marginEnd="5dp"
+                android:layout_marginRight="5dp"
+                android:contentDescription="@string/plusbutton"
+                android:focusable="true"
+                android:orientation="horizontal"
+                android:scaleType="centerCrop"
+                android:src="@drawable/plus3"
+                />
+            <ImageButton
+                android:id="@+id/nextButton1"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@color/myWhite"
+                android:contentDescription="nextButton"
+                android:focusable="true"
+                android:orientation="horizontal"
+                android:scaleType="centerCrop"
+                android:src="@drawable/next1" />
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

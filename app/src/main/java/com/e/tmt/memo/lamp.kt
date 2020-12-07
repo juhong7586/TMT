@@ -1,4 +1,4 @@
-package com.e.tmt
+package com.e.tmt.memo
 
 
 import android.annotation.SuppressLint
@@ -11,8 +11,10 @@ import android.view.animation.AlphaAnimation
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.fragment_add_memo.*
-import kotlinx.android.synthetic.main.fragment_edit.*
+import com.e.tmt.R
+import com.e.tmt.cabinet.CabinetAdapter
+import com.e.tmt.cabinet.cabinet
+import kotlinx.android.synthetic.main.fragment_cabinet_list.*
 import kotlinx.android.synthetic.main.fragment_list.*
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -29,7 +31,7 @@ class lamp : AppCompatActivity() {
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
-    val TmtService = retrofit.create(TmtService::class.java)
+    val TmtService = retrofit.create(com.e.tmt.memo.TmtService::class.java)
     val adapter = CustomAdapter()
 
     var addMT: String = ""
@@ -39,12 +41,16 @@ class lamp : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_lamp)
+
+        memoList.adapter = adapter
+        memoList.layoutManager = LinearLayoutManager(this)
+
         setFragment()
         getMemo()
 
     }
 
-    fun setFragment() {
+    private fun setFragment() {
         val listFragment = ListFragment()
         val transaction = supportFragmentManager.beginTransaction()
         transaction.add(R.id.fragmentLayout, listFragment)
@@ -54,7 +60,6 @@ class lamp : AppCompatActivity() {
     //페이지 이동
     fun goDetail() {
         val detailFragment = DetailFragment()
-
         val transaction = supportFragmentManager.beginTransaction()
         transaction
             .setCustomAnimations(
@@ -141,10 +146,6 @@ class lamp : AppCompatActivity() {
 
 
     fun getMemo() {
-
-        memoList.adapter = adapter
-        memoList.layoutManager = LinearLayoutManager(this)
-
         TmtService.getMemo().enqueue(object : Callback<List<Memo>> {
             override fun onResponse(call: Call<List<Memo>>, response: Response<List<Memo>>) {
                 adapter.listData.addAll(response.body() as List<Memo>)
@@ -351,7 +352,6 @@ class lamp : AppCompatActivity() {
                 selectedNo.add(selectOne)
             }
         }
-
         return selectedNo
 
     }

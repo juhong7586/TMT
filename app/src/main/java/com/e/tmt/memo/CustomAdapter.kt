@@ -1,7 +1,5 @@
-package com.e.tmt
+package com.e.tmt.memo
 
-import android.graphics.Color
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,12 +7,13 @@ import android.widget.Toast
 import android.widget.Toast.makeText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.e.tmt.R
 import kotlinx.android.synthetic.main.item_recycler.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
 
-class CustomAdapter : RecyclerView.Adapter<CustomAdapter.Holder>() {
+class CustomAdapter : RecyclerView.Adapter<CustomAdapter.MemoHolder>() {
 
 
     var listData = mutableListOf<Memo>()
@@ -33,29 +32,21 @@ class CustomAdapter : RecyclerView.Adapter<CustomAdapter.Holder>() {
     var oldDate: Date? = null
     var formattedDate: String = ""
 
-
-    var activityLamp: lamp? = null
-
-
-
-
-
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MemoHolder {
         val view = LayoutInflater.from(parent.context).inflate(
             R.layout.item_recycler,
             parent,
             false
         )
 
-        return Holder(view)
+        return MemoHolder(view)
     }
 
     override fun getItemCount(): Int {
         return listData.size
     }
 
-    override fun onBindViewHolder(holder: Holder, position: Int) {
+    override fun onBindViewHolder(holder: MemoHolder, position: Int) {
         var memo = listData.get(holder.adapterPosition)
 
         holder.setMemo(memo)
@@ -64,7 +55,7 @@ class CustomAdapter : RecyclerView.Adapter<CustomAdapter.Holder>() {
     }
 
 
-    inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class MemoHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun setMemo(memo: Memo) {
             itemView.checkBox.isChecked = false
@@ -106,30 +97,27 @@ class CustomAdapter : RecyclerView.Adapter<CustomAdapter.Holder>() {
 
             }
 
-            itemView.textTitle.setOnClickListener(object: View.OnClickListener {
-                override fun onClick(v: View?) {
-                    detailNo = adapterPosition
-                    detailIndex = adapterPosition
+            itemView.textTitle.setOnClickListener { v ->
+                detailNo = adapterPosition
+                detailIndex = adapterPosition
 
-                    var mMemo: Memo? = null
-                    mMemo = listData[detailNo]
+                var mMemo: Memo? = null
+                mMemo = listData[detailNo]
 
-                    val activity = v!!.context as AppCompatActivity
-                    val detailFragment = DetailFragment()
-                    val transaction = activity.supportFragmentManager.beginTransaction()
-                    transaction
-                        .setCustomAnimations(
-                            R.anim.fragment_open_enter,
-                            R.anim.fade_out,
-                            R.anim.fade_in,
-                            R.anim.fragment_fade_exit
-                        )
-                        .replace(R.id.fragmentLayout, detailFragment)
-                        .addToBackStack("detail")
-                        .commit()
-                }
-
-            })
+                val activity = v!!.context as AppCompatActivity
+                val detailFragment = DetailFragment()
+                val transaction = activity.supportFragmentManager.beginTransaction()
+                transaction
+                    .setCustomAnimations(
+                        R.anim.fragment_open_enter,
+                        R.anim.fade_out,
+                        R.anim.fade_in,
+                        R.anim.fragment_fade_exit
+                    )
+                    .replace(R.id.fragmentLayout, detailFragment)
+                    .addToBackStack("detail")
+                    .commit()
+            }
         }
     }
 

@@ -1,6 +1,4 @@
-package com.e.tmt
-
-import com.google.gson.annotations.SerializedName
+package com.e.tmt.memo
 
 
 data class Memo(var selected: Boolean, var id: Int, var editor: String, var title: String, var content: String, var datetime: String)

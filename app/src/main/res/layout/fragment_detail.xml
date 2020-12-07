@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/myWhite"
     android:clickable="true"
-    tools:context=".DetailFragment"
+    tools:context=".memo.DetailFragment"
     android:focusable="true">
 
 

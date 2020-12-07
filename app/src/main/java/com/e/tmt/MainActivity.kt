@@ -10,8 +10,12 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.animation.AlphaAnimation
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.e.tmt.cabinet.CabinetAdapter
+import com.e.tmt.cabinet.cabinet
+import com.e.tmt.memo.lamp
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_list.*
+import kotlinx.android.synthetic.main.fragment_cabinet_list.*
 
 
 class MainActivity : AppCompatActivity() {

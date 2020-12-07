@@ -14,8 +14,8 @@
         android:usesCleartextTraffic="true">
 
         <activity android:name=".cards" />
-        <activity android:name=".cabinet" />
-        <activity android:name=".lamp" />
+        <activity android:name=".cabinet.cabinet" />
+        <activity android:name=".memo.lamp" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

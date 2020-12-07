@@ -1,18 +1,17 @@
-package com.e.tmt
+package com.e.tmt.memo
 
 import android.content.Context
-import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.fragment_detail.*
+import com.e.tmt.R
 import kotlinx.android.synthetic.main.fragment_detail.view.*
 
 
 class DetailFragment : Fragment() {
-    var activityLamp:lamp? = null
+    var activityLamp: lamp? = null
 
 
     override fun onCreateView(

@@ -58,32 +58,31 @@
         <Button
             android:id="@+id/cabinetButton"
             style="@android:style/Widget.Holo.Button.Small"
-            android:layout_width="175dp"
-            android:layout_height="90dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_width="170dp"
+            android:layout_height="70dp"
+            android:layout_marginEnd="15dp"
             android:layout_weight="1"
-            android:background="@drawable/b21"
+            android:background="@drawable/b18"
             android:fontFamily="@font/uhbeenamsoyoung_normal"
             android:paddingBottom="10dp"
             android:shadowColor="#F5F5F5"
-            android:text="@string/cabinet"
+            android:text="@string/cabinet2"
             android:textColor="#29276f"
             android:textColorLink="#403653"
-            android:textSize="25sp" />
+            android:textSize="24sp" />
 
         <Button
             android:id="@+id/lampButton"
             style="@android:style/Widget.Holo.Button.Small"
-            android:layout_width="175dp"
+            android:layout_width="170dp"
             android:layout_height="70dp"
             android:layout_weight="1"
             android:background="@drawable/b18"
             android:fontFamily="@font/uhbeenamsoyoung_normal"
-            android:text="@string/memo"
             android:paddingBottom="10dp"
+            android:text="@string/memo"
             android:textColor="#29276f"
-            android:textSize="25sp" />
+            android:textSize="24sp" />
 
     </LinearLayout>
 
@@ -98,34 +97,33 @@
         app:layout_constraintTop_toBottomOf="@id/mainButtonLayout1"
         app:layout_constraintVertical_bias="0.787">
 
-        <Button
-            android:id="@+id/cardButton"
-            style="@android:style/Widget.Holo.Button.Small"
-            android:layout_width="175dp"
-            android:layout_height="70dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_weight="1"
-            android:background="@drawable/b18"
-            android:fontFamily="@font/uhbeenamsoyoung_normal"
-            android:text="@string/card"
-            android:paddingBottom="10dp"
-            android:textColor="#29276f"
-            android:textSize="25sp" />
+    <Button
+        android:id="@+id/cardButton"
+        style="@android:style/Widget.Holo.Button.Small"
+        android:layout_width="170dp"
+        android:layout_height="70dp"
+        android:layout_marginEnd="15dp"
+        android:layout_weight="1"
+        android:background="@drawable/b18"
+        android:fontFamily="@font/uhbeenamsoyoung_normal"
+        android:paddingBottom="10dp"
+        android:text="@string/card"
+        android:textColor="#29276f"
+        android:textSize="24sp"
+        android:layout_marginRight="15dp" />
 
-        <Button
-            android:id="@+id/settingsButton"
-            style="@android:style/Widget.Holo.Button.Small"
-            android:layout_width="175dp"
-            android:layout_height="70dp"
-            android:layout_weight="1"
-            android:paddingBottom="10dp"
-            android:background="@drawable/b18"
-            android:fontFamily="@font/uhbeenamsoyoung_normal"
-            android:text="@string/setting"
-            android:textColor="#29276f"
-            android:textSize="25sp" />
-
+    <Button
+        android:id="@+id/settingsButton"
+        style="@android:style/Widget.Holo.Button.Small"
+        android:layout_width="170dp"
+        android:layout_height="70dp"
+        android:layout_weight="1"
+        android:background="@drawable/b18"
+        android:fontFamily="@font/uhbeenamsoyoung_normal"
+        android:paddingBottom="10dp"
+        android:text="@string/setting"
+        android:textColor="#29276f"
+        android:textSize="24sp" />
     </LinearLayout>
 
 

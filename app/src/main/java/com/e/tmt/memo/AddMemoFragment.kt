@@ -1,25 +1,18 @@
-package com.e.tmt
+package com.e.tmt.memo
 
 import android.content.Context
-import android.graphics.Color
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.Toast
-import kotlinx.android.synthetic.main.fragment_add_memo.*
+import com.e.tmt.R
 import kotlinx.android.synthetic.main.fragment_add_memo.view.*
-import kotlinx.android.synthetic.main.fragment_detail.view.backButton
-import kotlinx.android.synthetic.main.item_recycler.view.*
 
 
 class AddMemoFragment : Fragment() {
-    var activityLamp:lamp? = null
+    var activityLamp: lamp? = null
 
 
     override fun onCreateView(

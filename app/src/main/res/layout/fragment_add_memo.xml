@@ -7,7 +7,7 @@
     android:animateLayoutChanges="false"
     android:animationCache="false"
     android:background="@color/myWhite"
-    tools:context=".AddMemoFragment">
+    tools:context=".memo.AddMemoFragment">
 
 
     <TextView
@@ -32,7 +32,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:autofillHints="@string/addMemoEditor"
-        android:editable="true"
         android:fontFamily="@font/paybooc_font"
         android:hint="@string/addMemoEditor"
         android:inputType="text"
@@ -65,7 +64,6 @@
         android:layout_height="wrap_content"
         android:autoLink="all"
         android:autofillHints="@string/addMemoContent"
-        android:editable="true"
         android:fontFamily="@font/paybooc_font"
         android:gravity="start|top"
         android:hint="@string/addMemoContent"

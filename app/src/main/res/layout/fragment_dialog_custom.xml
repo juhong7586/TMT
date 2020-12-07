@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rl_custom_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="20dp"
+    android:elevation="4dp"
+    android:background="#ffffff">
+
+
+
+    <TextView
+        android:id="@+id/header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:paddingTop="2dp"
+        android:paddingLeft="10dp"
+        android:layout_marginLeft="20dp"
+        android:fontFamily="@font/paybooc_bold"
+        android:text="사물함 추가"
+        android:textColor="#555454"
+        android:textSize="27sp" />
+    <EditText
+        android:id="@+id/stuffTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="35dp"
+        android:layout_marginEnd="35dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/paybooc_medium"
+        android:textSize="16sp"
+        android:hint="이름 입력"
+        android:text=""
+        android:autofillHints="이름 입력"
+        android:inputType="text"
+        android:textColor="#555454"
+        app:layout_constraintTop_toBottomOf="@+id/header"
+        app:layout_constraintStart_toStartOf="parent" />
+    <ImageButton
+        android:id="@+id/backButton3"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@null"
+        android:clickable="true"
+        android:scaleType="fitCenter"
+        android:src="@drawable/back2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/saveButton2"
+        android:focusable="true" />
+    <ImageButton
+        android:id="@+id/saveButton2"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:clickable="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="10dp"
+        android:background="@null"
+        android:scaleType="fitCenter"
+        android:src="@drawable/save2"
+        app:layout_constraintTop_toBottomOf="@id/stuffTitle"
+        app:layout_constraintEnd_toEndOf="@id/stuffTitle"
+        android:focusable="true" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

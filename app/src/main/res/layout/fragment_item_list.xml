@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".cabinet.ItemListFragment"
+    android:background="@color/myWhite">
+<LinearLayout
+    android:id="@+id/linear3"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_marginTop="120dp"
+    android:gravity="center_horizontal"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent">
+
+    <LinearLayout
+        android:id="@+id/linear1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/back_border2"
+        android:paddingVertical="10dp"
+        android:paddingHorizontal="20dp"
+        android:orientation="vertical"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/cabinetWhere"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/paybooc_medium"
+            android:layout_marginBottom="10dp"
+            android:text="서랍장 이름"
+            android:background="@drawable/back_border"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/paybooc_medium"
+            android:text="예"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linear2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="76dp"
+        android:background="@drawable/back_border2"
+        android:paddingVertical="10dp"
+        android:paddingHorizontal="20dp"
+        android:orientation="vertical"
+        app:layout_constraintLeft_toRightOf="@+id/linear1"
+        tools:layout_editor_absoluteY="96dp">
+
+        <TextView
+            android:id="@+id/cellWhere"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/paybooc_medium"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/back_border"
+            android:text="공간 이름"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/paybooc_medium"
+            android:text="예"
+            android:textSize="14sp" />
+    </LinearLayout>
+</LinearLayout>
+    <TableLayout
+        android:id="@+id/itemTable"
+        android:layout_width="wrap_content"
+        android:layout_height="29dp"
+        android:layout_marginTop="40dp"
+        android:stretchColumns="3"
+        android:gravity="center_horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/linear3"
+        app:layout_constraintEnd_toEndOf="@id/linear3"
+        app:layout_constraintStart_toStartOf="@id/linear3">
+
+        <TableRow
+            android:id="@+id/FirstRow"
+            android:layout_width="386dp"
+            android:layout_height="match_parent">
+
+
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="30dp"
+                android:layout_column="1"
+                android:layout_gravity="center"
+                android:background="@color/Astronaut"
+                android:fontFamily="@font/paybooc_bold"
+                android:gravity="center_horizontal"
+                android:paddingLeft="10dip"
+                android:paddingTop="6dp"
+                android:paddingRight="10dip"
+                android:text="@string/lampRow1"
+                android:textAlignment="center"
+                android:textColor="@color/myWhite"
+                android:textSize="13sp"/>
+
+            <TextView
+                android:layout_width="300dp"
+                android:layout_height="30dp"
+                android:layout_column="2"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="@color/Astronaut"
+                android:fontFamily="@font/paybooc_bold"
+                android:gravity="center_horizontal"
+                android:paddingHorizontal="100dp"
+                android:paddingTop="5dip"
+                android:text="물건 이름"
+                android:textAlignment="center"
+                android:textColor="@color/myWhite"
+                android:textSize="13sp"/>
+
+
+        </TableRow>
+    </TableLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/itemList"
+        android:layout_width="360dp"
+        android:layout_height="230dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/itemTable"
+        tools:layout_conversion_absoluteHeight="194dp"
+        tools:layout_conversion_absoluteWidth="411dp" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
