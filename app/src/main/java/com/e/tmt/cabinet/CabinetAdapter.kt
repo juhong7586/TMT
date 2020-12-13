@@ -1,32 +1,36 @@
 package com.e.tmt.cabinet
 
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.updateLayoutParams
 import androidx.recyclerview.widget.RecyclerView
 import com.e.tmt.R
+import com.e.tmt.memo.lamp
 import kotlinx.android.synthetic.main.cabinet_recycler.view.*
+import kotlinx.android.synthetic.main.stuff_recycler.view.*
+import kotlinx.coroutines.withContext
+import kotlin.coroutines.coroutineContext
 
-class CabinetAdapter(private val inputList: MutableList<String>): RecyclerView.Adapter<CabinetAdapter.StuffHolder>(){
+class CabinetAdapter(inputList: MutableList<String>, var inputType: String): RecyclerView.Adapter<CabinetAdapter.StuffHolder>(){
     var stuffList = mutableListOf<Stuff>()
-    var cabinetList = mutableListOf<String>()
     var selectedList = inputList
     var selecCabiList = mutableListOf<Stuff>()
 
-    var selectedNums = mutableListOf<Int>()
     var selectedNum: Int? = null
     var selectedOne: String = ""
 
-    var activityCabinet: cabinet? = null
-
-
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StuffHolder {
-        val itemView = LayoutInflater.from(parent.context)
+        var itemView: Any
+        if (inputType == "item"){
+            itemView = LayoutInflater.from(parent.context)
+                .inflate(R.layout.cabinet_recycler2, parent, false)
+        }else{
+            itemView = LayoutInflater.from(parent.context)
             .inflate(R.layout.cabinet_recycler, parent, false)
+        }
         return StuffHolder(itemView)
     }
 
@@ -37,7 +41,7 @@ class CabinetAdapter(private val inputList: MutableList<String>): RecyclerView.A
     }
     override fun onBindViewHolder(holder: StuffHolder, position: Int) {
         //var stuff = stuffList.get(holder.adapterPosition)
-        var cabinet = selectedList.get(holder.adapterPosition)
+        val cabinet = selectedList[holder.adapterPosition]
         holder.setCabinet(cabinet)
         //holder.cabinetCheck.isChecked = false
 
@@ -50,30 +54,34 @@ class CabinetAdapter(private val inputList: MutableList<String>): RecyclerView.A
         //}
         fun setCabinet(cabinetText: String){
             itemView.cabinetName.text = cabinetText
+
+            if(inputType == "item"){
+                if(stuffList[layoutPosition].etc != null) {
+                    itemView.etc.text = stuffList[layoutPosition].etc
+                }
+            }
         }
 
         init{
 
-            itemView.cabinetCheckBox.setOnCheckedChangeListener { buttonView, isChecked ->
+           itemView.itemCard.setOnClickListener {
+               if(this@CabinetAdapter.inputType == "cabinet") {
+                   selectedNum = adapterPosition
+                   selectedOne = selectedList[selectedNum!!]
+                   (stuffList.filter { it.cabinetName == selectedOne } as MutableList<Stuff>).also {
+                       selecCabiList = it
+                   }
 
-                if (isChecked) {
-                    stuffList[adapterPosition].selected = 1
-                } else {
-                    stuffList[adapterPosition].selected = 0
-                }
-            }
+               }else if(this@CabinetAdapter.inputType == "cell"){
+                   selectedNum = adapterPosition
+                   selectedOne = selectedList[selectedNum!!]
+                   (stuffList.filter { it.cellName == selectedOne } as MutableList<Stuff>).also {
+                       selecCabiList = it
+                   }
 
-           itemView.itemCard.setOnClickListener { v ->
-
-                selectedNum = adapterPosition
-                selectedOne = selectedList[selectedNum!!]
-                selecCabiList = stuffList.filter { it.cabinetName == selectedOne } as MutableList<Stuff>
-                //v.itemCard.setCardBackgroundColor(0xFF7903DAC6.toInt())
-                //Thread.sleep(1_000)
-               //v.itemCard.setCardBackgroundColor(Color.parseColor("#ffffff"))
-
-                //selecCabiList = stuffList.filter { it.cabinetName == selectedCabinet } as MutableList<Stuff>
-               // Toast.makeText(itemView.context, selectedCabinet, Toast.LENGTH_SHORT).show()
+               }
+               notifyDataSetChanged()
+               Toast.makeText(itemView.context, selectedOne, Toast.LENGTH_SHORT).show()
 
             }
         }

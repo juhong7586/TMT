@@ -24,7 +24,7 @@ class CabinetMainFragment : Fragment() {
 
         activityLamp?.buttonEffect2(view.findButton)
         activityLamp?.buttonEffect2(view.manageButton)
-        view.findButton.setOnClickListener{ activityCabinet?.goItemList()}
+        view.findButton.setOnClickListener{ activityCabinet?.goFind()}
         view.manageButton.setOnClickListener{
             //activityCabinet?.getCabinet()
             //activityCabinet?.getStuff()

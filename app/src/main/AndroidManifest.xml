@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
         android:usesCleartextTraffic="true">
-
+        <activity android:name=".cabinet.cabinetFindActivity"></activity>
         <activity android:name=".cards" />
         <activity android:name=".cabinet.cabinet" />
         <activity android:name=".memo.lamp" />

@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.e.tmt.R
+import kotlinx.android.synthetic.main.fragment_item_add.view.*
 
 
 class ItemAddFragment : Fragment() {
@@ -19,6 +20,8 @@ class ItemAddFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater!!.inflate(R.layout.fragment_item_add, container, false)
+
+
         return view
 
     }

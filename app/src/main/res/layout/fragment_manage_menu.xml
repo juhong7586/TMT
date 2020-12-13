@@ -22,14 +22,14 @@
         android:gravity="center_horizontal"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
-        android:shadowColor="@color/DaisyBush"
-        android:shadowDx="1"
-        android:shadowDy="1"
-        android:shadowRadius="5"
-        android:text="@string/manageTitle"
+        android:shadowColor="@color/colorPrimaryDark"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="1"
+        android:text="서랍장 관리"
         android:textAlignment="center"
-        android:textColor="@color/DaisyBush"
-        android:textSize="40sp"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="28sp"
         android:textStyle="bold"
         app:layout_constraintHorizontal_bias="0.1"
         app:layout_constraintStart_toStartOf="parent"
@@ -50,7 +50,7 @@
             android:layout_gravity="center_horizontal"
             android:background="@drawable/b21"
             android:contentDescription="@string/findItem"
-            android:fontFamily="@font/uhbeenamsoyoung_bold"
+            android:fontFamily="@font/paybooc_bold"
             android:paddingTop="15dp"
             android:paddingBottom="20dp"
             android:scaleType="fitCenter"
@@ -59,7 +59,7 @@
             android:shadowDy="2"
             android:shadowRadius="1.5"
             android:text="사물함"
-            android:textColor="@color/DaisyBush"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="27sp" />
 
         <Button
@@ -73,12 +73,12 @@
             android:shadowDy="1"
             android:shadowRadius="1.5"
             android:contentDescription="@string/findItem"
-            android:fontFamily="@font/uhbeenamsoyoung_bold"
+            android:fontFamily="@font/paybooc_bold"
             android:paddingTop="15dp"
             android:paddingBottom="20dp"
             android:scaleType="fitCenter"
             android:text="공간"
-            android:textColor="@color/DaisyBush"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="27sp" />
 
         <Button
@@ -92,12 +92,12 @@
             android:shadowDy="1"
             android:shadowRadius="1.5"
             android:contentDescription="@string/findItem"
-            android:fontFamily="@font/uhbeenamsoyoung_bold"
+            android:fontFamily="@font/paybooc_bold"
             android:paddingTop="15dp"
             android:paddingBottom="20dp"
             android:scaleType="fitCenter"
             android:text="물건"
-            android:textColor="@color/DaisyBush"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="27sp" />
 </LinearLayout>
 

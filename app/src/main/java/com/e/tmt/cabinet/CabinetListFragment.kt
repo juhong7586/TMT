@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.e.tmt.R
 import kotlinx.android.synthetic.main.fragment_cabinet_list.*
@@ -18,6 +19,12 @@ class CabinetListFragment : Fragment() {
         activityCabinet?.getStuff()
         super.onCreate(savedInstanceState)
 
+    }
+
+
+    override fun onStart() {
+        activityCabinet?.getStuff()
+        super.onStart()
     }
 
     override fun onCreateView(
@@ -36,10 +43,6 @@ class CabinetListFragment : Fragment() {
         view.nextButton1.setOnClickListener {
             activityCabinet?.goCellList()
 
-            //var theList = activityCabinet?.getCell1()
-            //if (theList != null) {
-            //activityCabinet?.getCell2(theList)
-            //}
         }
 
         return view

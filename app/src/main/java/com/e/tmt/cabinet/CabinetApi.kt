@@ -22,18 +22,15 @@ interface CabinetService {
     fun getStuff(): Call<List<Stuff>>
     //fun get(): Call<Thing>
 
-    @GET("cabinet")
-    fun getCabinet(): Call<List<String>>
-
-    @GET("cell/{cabinet}")
-    fun getCell(@Path("cabinet") cabinet: String): Call<List<String>>
+    @GET("item/{cell}")
+    fun getItems1(@Path("cell") cell: String): Call <List<String>>
 
 
     @DELETE("cabinet/{name}")
     fun deleteCabinet(@Path("name") name: String): Call<ResponseBody>
 
     @DELETE("cell/{name}")
-    fun cellCabinet(@Path("name") name: String): Call<ResponseBody>
+    fun deleteCell(@Path("name") name: String): Call<ResponseBody>
 
 
 }
