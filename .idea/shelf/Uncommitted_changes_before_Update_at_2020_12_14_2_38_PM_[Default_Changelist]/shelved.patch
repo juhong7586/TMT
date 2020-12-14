@@ -1,0 +1,706 @@
+Index: app/src/main/java/com/e/tmt/cabinet/cabinetFindActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.e.tmt.cabinet\n\nimport android.content.Context\nimport androidx.appcompat.app.AppCompatActivity\nimport android.os.Bundle\nimport android.util.AttributeSet\nimport android.view.View\nimport android.widget.AdapterView\nimport android.widget.ArrayAdapter\nimport android.widget.SpinnerAdapter\nimport android.widget.Toast\nimport androidx.recyclerview.widget.LinearLayoutManager\nimport androidx.recyclerview.widget.RecyclerView\nimport com.e.tmt.R\nimport com.e.tmt.memo.ServerApi\nimport kotlinx.android.synthetic.main.activity_cabinet_find.*\nimport retrofit2.Call\nimport retrofit2.Callback\nimport retrofit2.Response\nimport retrofit2.Retrofit\nimport retrofit2.converter.gson.GsonConverterFactory\n\nclass cabinetFindActivity : AppCompatActivity() {\n\n    lateinit var cabinetListAdapter: SpinnerAdapter\n    lateinit var cellListAdapter: SpinnerAdapter\n    lateinit var stuffListAdapter: ItemAdapter\n\n    lateinit var cabinetCardView: RecyclerView\n\n    var allStuffs = mutableListOf<Stuff>()\n    var cabinetList = mutableListOf<String>()\n    var cellList = mutableListOf<String>()\n\n    var selectedItems = mutableListOf<Stuff>()\n    var selectedCabinet: String = \"\"\n    var selectedCell: String = \"\"\n\n    private val retrofit = Retrofit.Builder()\n        .baseUrl(ServerApi.DOMAIN)\n        .addConverterFactory(GsonConverterFactory.create())\n        .build()\n    private val cabinetService = retrofit.create(CabinetService::class.java)\n\n    override fun onCreate(savedInstanceState: Bundle?) {\n        super.onCreate(savedInstanceState)\n        setContentView(R.layout.activity_cabinet_find)\n        activateCabinet()\n\n\n    }\n\n    fun activateCabinet(){\n\n        cabinetList.add(\" -선택하세요-   ▼\")\n\n        cabinetService.getStuff().enqueue(object : Callback<List<Stuff>> {\n\n            override fun onResponse(call: Call<List<Stuff>>, response: Response<List<Stuff>>) {\n                allStuffs = response.body() as MutableList<Stuff>\n                selectedItems = allStuffs\n                for (i in selectedItems.indices){\n                    cabinetList.add(selectedItems[i].cabinetName)\n                }\n                cabinetList = cabinetList.distinct() as MutableList<String>\n                cabinetListAdapter = ArrayAdapter<String>(this@cabinetFindActivity, android.R.layout.simple_list_item_1, cabinetList)\n                spinnerCabinet.adapter = cabinetListAdapter\n\n                stuffListAdapter = ItemAdapter(allStuffs)\n                findingItems.adapter = stuffListAdapter\n                findingItems.layoutManager = LinearLayoutManager(this@cabinetFindActivity)\n\n                cellList.add(\" -선택하세요-   ▼\")\n                cellListAdapter = ArrayAdapter<String>(this@cabinetFindActivity, android.R.layout.simple_list_item_1, cellList)\n                spinnerCell.adapter = cellListAdapter\n\n\n                spinnerCabinet.onItemSelectedListener=object : AdapterView.OnItemSelectedListener {\n                    override fun onItemSelected(\n                        parent: AdapterView<*>?,\n                        view: View?,\n                        position: Int,\n                        id: Long\n                    ) {\n                        if(position != 0) {\n                            selectedCabinet = cabinetList[position]\n                            activateCell(selectedCabinet)\n                        }\n                    }\n\n                    override fun onNothingSelected(parent: AdapterView<*>?) {\n\n                    }\n                }\n            }\n            override fun onFailure(call: Call<List<Stuff>>, t: Throwable) {\n                Toast.makeText(baseContext, \"문제가 발생했습니다.\", Toast.LENGTH_SHORT).show()\n            }\n        }\n        )\n    }\n\n    fun activateCell(theCabinet: String){\n        cellList.clear()\n        cellList.add(\" -선택하세요-   ▼\")\n        selectedItems = allStuffs.filter{ it.cabinetName == theCabinet} as MutableList<Stuff>\n        var everyCellList = selectedItems\n        for (i in 0 until selectedItems.size){\n            cellList.add(selectedItems[i].cellName)\n        }\n        val onlyCellList = cellList.distinct()\n        cellListAdapter = ArrayAdapter<String>(this@cabinetFindActivity, android.R.layout.simple_list_item_1, onlyCellList)\n        spinnerCell.adapter = cellListAdapter\n\n        stuffListAdapter.selectedList = selectedItems\n        stuffListAdapter.notifyDataSetChanged()\n\n        spinnerCell.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{\n            override fun onItemSelected(\n                parent: AdapterView<*>?,\n                view: View?,\n                position: Int,\n                id: Long\n            ) {\n                selectedCell = cellList[position]\n                selectedItems = everyCellList.filter{it.cellName == selectedCell} as MutableList<Stuff>\n                if(position != 0) {\n                    stuffListAdapter.selectedList = selectedItems\n                    stuffListAdapter.notifyDataSetChanged()\n                }\n            }\n\n            override fun onNothingSelected(parent: AdapterView<*>?) {\n            }\n\n        }\n    }\n\n    fun activateStuff(){\n        stuffListAdapter = ItemAdapter(allStuffs)\n        findingItems.adapter = stuffListAdapter\n        findingItems.layoutManager = LinearLayoutManager(this@cabinetFindActivity)\n    }\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/e/tmt/cabinet/cabinetFindActivity.kt	(revision fe2972389ef25b08f5b00fe1c53a19479dc77eac)
++++ app/src/main/java/com/e/tmt/cabinet/cabinetFindActivity.kt	(date 1607924239000)
+@@ -1,24 +1,28 @@
+ package com.e.tmt.cabinet
+ 
++
++import android.annotation.SuppressLint
+ import android.content.Context
+ import androidx.appcompat.app.AppCompatActivity
+ import android.os.Bundle
+ import android.util.AttributeSet
++import android.view.Menu
++import android.view.MotionEvent
+ import android.view.View
+-import android.widget.AdapterView
+-import android.widget.ArrayAdapter
+-import android.widget.SpinnerAdapter
+-import android.widget.Toast
++import android.view.animation.AlphaAnimation
++import android.widget.*
+ import androidx.recyclerview.widget.LinearLayoutManager
+-import androidx.recyclerview.widget.RecyclerView
+ import com.e.tmt.R
+ import com.e.tmt.memo.ServerApi
+ import kotlinx.android.synthetic.main.activity_cabinet_find.*
++import kotlinx.android.synthetic.main.stuff_recycler.*
++import okhttp3.ResponseBody
+ import retrofit2.Call
+ import retrofit2.Callback
+ import retrofit2.Response
+ import retrofit2.Retrofit
+ import retrofit2.converter.gson.GsonConverterFactory
++import java.util.*
+ 
+ class cabinetFindActivity : AppCompatActivity() {
+ 
+@@ -26,8 +30,6 @@
+     lateinit var cellListAdapter: SpinnerAdapter
+     lateinit var stuffListAdapter: ItemAdapter
+ 
+-    lateinit var cabinetCardView: RecyclerView
+-
+     var allStuffs = mutableListOf<Stuff>()
+     var cabinetList = mutableListOf<String>()
+     var cellList = mutableListOf<String>()
+@@ -35,6 +37,11 @@
+     var selectedItems = mutableListOf<Stuff>()
+     var selectedCabinet: String = ""
+     var selectedCell: String = ""
++    var allStuffNames = mutableListOf<String>()
++
++    var findingOne = ""
++
++    private lateinit var searchView: SearchView
+ 
+     private val retrofit = Retrofit.Builder()
+         .baseUrl(ServerApi.DOMAIN)
+@@ -46,11 +53,37 @@
+         super.onCreate(savedInstanceState)
+         setContentView(R.layout.activity_cabinet_find)
+         activateCabinet()
++        buttonEffect(toCabinet)
++        toCabinet.setOnClickListener {
++            sendToCabinet()
++        }
++        searchView = findViewById(R.id.searchStuff)
++        letsSearch()
++
++    }
++
++    fun letsSearch(){
++        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
++            override fun onQueryTextSubmit(query: String?): Boolean {
++
+ 
++                //stuffListAdapter.selectedList = selectedItems
++                //stuffListAdapter.notifyDataSetChanged()
++                findingOne = query!!
++                //stuffListAdapter.filter.filter(findingOne)
++                return true
++            }
+ 
++            override fun onQueryTextChange(newText: String?): Boolean {
++                findingOne = newText!!
++                stuffListAdapter.filter.filter(findingOne)
++                return true
++            }
++        })
+     }
+ 
+-    fun activateCabinet(){
++
++    private fun activateCabinet() {
+ 
+         cabinetList.add(" -선택하세요-   ▼")
+ 
+@@ -58,41 +91,58 @@
+ 
+             override fun onResponse(call: Call<List<Stuff>>, response: Response<List<Stuff>>) {
+                 allStuffs = response.body() as MutableList<Stuff>
++
+                 selectedItems = allStuffs
+-                for (i in selectedItems.indices){
++                for (i in selectedItems.indices) {
+                     cabinetList.add(selectedItems[i].cabinetName)
++                    allStuffNames.add(selectedItems[i].itemName)
+                 }
+                 cabinetList = cabinetList.distinct() as MutableList<String>
+-                cabinetListAdapter = ArrayAdapter<String>(this@cabinetFindActivity, android.R.layout.simple_list_item_1, cabinetList)
++                ArrayAdapter(
++                    this@cabinetFindActivity,
++                    android.R.layout.simple_list_item_1,
++                    cabinetList
++                ).also { cabinetListAdapter = it }
+                 spinnerCabinet.adapter = cabinetListAdapter
+ 
+                 stuffListAdapter = ItemAdapter(allStuffs)
+                 findingItems.adapter = stuffListAdapter
+-                findingItems.layoutManager = LinearLayoutManager(this@cabinetFindActivity)
++                stuffListAdapter.stuffList = allStuffs
++                LinearLayoutManager(this@cabinetFindActivity).also {
++                    findingItems.layoutManager = it
++                }
+ 
+                 cellList.add(" -선택하세요-   ▼")
+-                cellListAdapter = ArrayAdapter<String>(this@cabinetFindActivity, android.R.layout.simple_list_item_1, cellList)
++                ArrayAdapter(
++                    this@cabinetFindActivity,
++                    android.R.layout.simple_list_item_1,
++                    cellList
++                ).also { cellListAdapter = it }
+                 spinnerCell.adapter = cellListAdapter
+ 
+ 
+-                spinnerCabinet.onItemSelectedListener=object : AdapterView.OnItemSelectedListener {
+-                    override fun onItemSelected(
+-                        parent: AdapterView<*>?,
+-                        view: View?,
+-                        position: Int,
+-                        id: Long
+-                    ) {
+-                        if(position != 0) {
+-                            selectedCabinet = cabinetList[position]
+-                            activateCell(selectedCabinet)
+-                        }
+-                    }
+-
+-                    override fun onNothingSelected(parent: AdapterView<*>?) {
+-
+-                    }
+-                }
++                spinnerCabinet.onItemSelectedListener =
++                    object : AdapterView.OnItemSelectedListener {
++                        override fun onItemSelected(
++                            parent: AdapterView<*>?,
++                            view: View?,
++                            position: Int,
++                            id: Long
++                        ) {
++                            if (position != 0) {
++                                selectedCabinet = cabinetList[position]
++                                activateCell(selectedCabinet)
++                            } else {
++                                stuffListAdapter.selectedList = allStuffs
++                                stuffListAdapter.notifyDataSetChanged()
++                            }
++                        }
++                        override fun onNothingSelected(parent: AdapterView<*>?) {
++                        }
++                    }
++
+             }
++
+             override fun onFailure(call: Call<List<Stuff>>, t: Throwable) {
+                 Toast.makeText(baseContext, "문제가 발생했습니다.", Toast.LENGTH_SHORT).show()
+             }
+@@ -100,22 +150,26 @@
+         )
+     }
+ 
+-    fun activateCell(theCabinet: String){
++    fun activateCell(theCabinet: String) {
+         cellList.clear()
+         cellList.add(" -선택하세요-   ▼")
+-        selectedItems = allStuffs.filter{ it.cabinetName == theCabinet} as MutableList<Stuff>
+-        var everyCellList = selectedItems
+-        for (i in 0 until selectedItems.size){
++        selectedItems = allStuffs.filter { it.cabinetName == theCabinet } as MutableList<Stuff>
++        val everyCellList = selectedItems
++        for (i in 0 until selectedItems.size) {
+             cellList.add(selectedItems[i].cellName)
+         }
+         val onlyCellList = cellList.distinct()
+-        cellListAdapter = ArrayAdapter<String>(this@cabinetFindActivity, android.R.layout.simple_list_item_1, onlyCellList)
++        ArrayAdapter(
++            this@cabinetFindActivity,
++            android.R.layout.simple_list_item_1,
++            onlyCellList
++        ).also { cellListAdapter = it }
+         spinnerCell.adapter = cellListAdapter
+ 
+         stuffListAdapter.selectedList = selectedItems
+         stuffListAdapter.notifyDataSetChanged()
+ 
+-        spinnerCell.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
++        spinnerCell.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+             override fun onItemSelected(
+                 parent: AdapterView<*>?,
+                 view: View?,
+@@ -123,8 +177,9 @@
+                 id: Long
+             ) {
+                 selectedCell = cellList[position]
+-                selectedItems = everyCellList.filter{it.cellName == selectedCell} as MutableList<Stuff>
+-                if(position != 0) {
++                selectedItems =
++                    everyCellList.filter { it.cellName == selectedCell } as MutableList<Stuff>
++                if (position != 0) {
+                     stuffListAdapter.selectedList = selectedItems
+                     stuffListAdapter.notifyDataSetChanged()
+                 }
+@@ -136,9 +191,79 @@
+         }
+     }
+ 
+-    fun activateStuff(){
+-        stuffListAdapter = ItemAdapter(allStuffs)
+-        findingItems.adapter = stuffListAdapter
+-        findingItems.layoutManager = LinearLayoutManager(this@cabinetFindActivity)
++    private var buttonClick = AlphaAnimation(1f, 0.4f)
++    private var buttonBack = AlphaAnimation(0.4f, 1f)
++
++    @SuppressLint("ClickableViewAccessibility")
++    fun buttonEffect(button: View) {
++        buttonClick.duration = 200
++        buttonBack.duration = 200
++        button.setOnTouchListener { v, event ->
++            when (event.action) {
++
++                MotionEvent.ACTION_DOWN -> {
++                    v.startAnimation(buttonClick)
++                    v.invalidate()
++                }
++                MotionEvent.ACTION_UP -> {
++                    v.startAnimation(buttonBack)
++                    v.invalidate()
++                }
++            }
++            false
++        }
+     }
++
++    private fun sendToCabinet() {
++        val sendNo = getSelectedList()
++        if (sendNo.isEmpty()) {
++            Toast.makeText(
++                baseContext,
++                "램프에 전송할 메모를 선택해주세요.",
++                Toast.LENGTH_SHORT
++            ).show()
++        } else {
++            val sendMemos = cabinetService.sendToCabinet(sendNo)
++            sendMemos.enqueue(object : Callback<ResponseBody> {
++                override fun onResponse(
++                    call: Call<ResponseBody>,
++                    response: Response<ResponseBody>
++                ) {
++                    if (response.code() == 200) {
++                        Toast.makeText(
++                            baseContext,
++                            "빛이 나는 곳을 확인하세요!",
++                            Toast.LENGTH_SHORT
++                        ).show()
++                    } else {
++                        Toast.makeText(
++                            baseContext,
++                            "물건이 전송되지 않았습니다.",
++                            Toast.LENGTH_SHORT
++                        ).show()
++                    }
++                }
++
++                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
++                    Toast.makeText(
++                        baseContext,
++                        "문제가 생겼습니다.",
++                        Toast.LENGTH_SHORT
++                    ).show()
++                }
++            })
++        }
++    }
++
++
++    private fun getSelectedList(): MutableList<Int> {
++        val selected = mutableListOf<Int>()
++        val selecteditems = selectedItems
++        for (i in 0 until selecteditems.size) if (selecteditems[i].selected == 1) {
++            selected.add(selecteditems[i].id)
++        }
++        return selected
++    }
++
++
+ }
+\ No newline at end of file
+Index: app/src/main/java/com/e/tmt/cabinet/ItemAdapter.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.e.tmt.cabinet\n\nimport android.view.LayoutInflater\nimport android.view.View\nimport android.view.ViewGroup\nimport android.widget.Toast\nimport androidx.recyclerview.widget.RecyclerView\nimport com.e.tmt.R\nimport kotlinx.android.synthetic.main.item_recycler.view.*\nimport kotlinx.android.synthetic.main.stuff_recycler.view.*\n\nclass ItemAdapter(private val inputList: MutableList<Stuff>): RecyclerView.Adapter<ItemAdapter.ItemHolder>(){\n    var stuffList = mutableListOf<Stuff>()\n    var cabinetList = mutableListOf<String>()\n    var selectedList = inputList\n    var selecCabiList = mutableListOf<Stuff>()\n\n    var selectedNums = mutableListOf<Int>()\n    var selectedNum: Int? = null\n    var selectedOne: String = \"\"\n\n    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemAdapter.ItemHolder {\n        val itemView = LayoutInflater.from(parent.context)\n            .inflate(R.layout.stuff_recycler, parent, false)\n        return ItemHolder(itemView)\n    }\n\n    override fun getItemCount(): Int {\n        return selectedList.size\n    }\n    override fun onBindViewHolder(holder: ItemAdapter.ItemHolder, position: Int) {\n        var cell = selectedList.get(holder.adapterPosition)\n        holder.setItems(cell)\n    }\n\n\n\n    inner class ItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView){\n        fun setItems(item: Stuff){\n            itemView.itemName.text = item.itemName\n            itemView.checkBox4.isSelected = false\n        }\n        init {\n            itemView.checkBox4.setOnCheckedChangeListener { buttonView, isChecked ->\n                if (isChecked) {\n\n                    var name = itemView.itemName.text\n                    Toast.makeText(\n                        itemView.context, \"선택한 물건: ${name}\",\n                        Toast.LENGTH_SHORT\n                    ).show()\n\n                    selectedOne = name.toString()\n                    //\n                    //if(lastPointed  != null) {\n                    selectedList[adapterPosition].selected = 1\n                    //}\n                } else {\n                    selectedList[adapterPosition].selected = 0\n                }\n            }\n        }\n    }\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/e/tmt/cabinet/ItemAdapter.kt	(revision fe2972389ef25b08f5b00fe1c53a19479dc77eac)
++++ app/src/main/java/com/e/tmt/cabinet/ItemAdapter.kt	(date 1607924044000)
+@@ -3,13 +3,16 @@
+ import android.view.LayoutInflater
+ import android.view.View
+ import android.view.ViewGroup
++import android.widget.Filter
++import android.widget.Filterable
+ import android.widget.Toast
+ import androidx.recyclerview.widget.RecyclerView
+ import com.e.tmt.R
+-import kotlinx.android.synthetic.main.item_recycler.view.*
+ import kotlinx.android.synthetic.main.stuff_recycler.view.*
++import java.util.*
+ 
+-class ItemAdapter(private val inputList: MutableList<Stuff>): RecyclerView.Adapter<ItemAdapter.ItemHolder>(){
++class ItemAdapter(inputList: MutableList<Stuff>): RecyclerView.Adapter<ItemAdapter.ItemHolder>(),
++    Filterable {
+     var stuffList = mutableListOf<Stuff>()
+     var cabinetList = mutableListOf<String>()
+     var selectedList = inputList
+@@ -19,6 +22,8 @@
+     var selectedNum: Int? = null
+     var selectedOne: String = ""
+ 
++
++
+     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemAdapter.ItemHolder {
+         val itemView = LayoutInflater.from(parent.context)
+             .inflate(R.layout.stuff_recycler, parent, false)
+@@ -29,12 +34,11 @@
+         return selectedList.size
+     }
+     override fun onBindViewHolder(holder: ItemAdapter.ItemHolder, position: Int) {
+-        var cell = selectedList.get(holder.adapterPosition)
++        val cell = selectedList[holder.adapterPosition]
+         holder.setItems(cell)
+     }
+ 
+ 
+-
+     inner class ItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+         fun setItems(item: Stuff){
+             itemView.itemName.text = item.itemName
+@@ -44,9 +48,9 @@
+             itemView.checkBox4.setOnCheckedChangeListener { buttonView, isChecked ->
+                 if (isChecked) {
+ 
+-                    var name = itemView.itemName.text
++                    val name = itemView.itemName.text
+                     Toast.makeText(
+-                        itemView.context, "선택한 물건: ${name}",
++                        itemView.context, "선택한 물건: $name",
+                         Toast.LENGTH_SHORT
+                     ).show()
+ 
+@@ -61,4 +65,40 @@
+             }
+         }
+     }
++
++    override fun getFilter( ): Filter {
++        return object: Filter(){
++            override fun performFiltering(constraint: CharSequence?): FilterResults{
++                val charSearch = constraint?.toString()
++                val filterResults = FilterResults()
++
++                    if(charSearch == null || charSearch.isEmpty()){
++                        filterResults.values  =  stuffList
++                        selecCabiList = stuffList
++                    }else{
++                        //for (stuff in stuffList){
++                        //    var theName = stuff.itemName.toLowerCase()
++                        for (theStuff in 0 until stuffList.size){
++                            var sstuff = stuffList[theStuff]
++                            var theName = stuffList[theStuff].itemName
++                            if(theName.contains(charSearch.toString(), ignoreCase = true) ){
++                                selecCabiList.add(sstuff)
++                            }
++                        }
++                        //stuffList.filter { it.itemName.contains(charSearch.toString(), ignoreCase = true) }
++                    }
++
++                //selecCabiList= stuffList.filter { it.itemName.contains(charSearch.toString(), ignoreCase = true) } as MutableList<Stuff>
++                filterResults.values = selecCabiList
++                //notifyDataSetChanged()
++                return filterResults
++            }
++
++            override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
++                selectedList = selecCabiList
++                notifyDataSetChanged()
++                //selecCabiList.removeAll(selecCabiList)
++            }
++        }
++    }
+ }
+\ No newline at end of file
+Index: app/src/main/java/com/e/tmt/cabinet/Stuff.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.e.tmt.cabinet\n\ndata class Stuff (var selected: Int, var id: Int, var cabinetName: String, var cellName: String, var itemName: String, var etc: String)\n\ndata class StuffMessage(\n    var result: Stuff\n)\n\ndata class CabinetForm(var cabinetName: String)
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/e/tmt/cabinet/Stuff.kt	(revision fe2972389ef25b08f5b00fe1c53a19479dc77eac)
++++ app/src/main/java/com/e/tmt/cabinet/Stuff.kt	(date 1607920726000)
+@@ -1,6 +1,6 @@
+ package com.e.tmt.cabinet
+ 
+-data class Stuff (var selected: Int, var id: Int, var cabinetName: String, var cellName: String, var itemName: String, var etc: String)
++data class Stuff (var selected: Int, var id: Int, var itemName: String, var cabinetName: String, var cellName: String,  var etc: String)
+ 
+ data class StuffMessage(
+     var result: Stuff
+Index: app/src/main/java/com/e/tmt/cabinet/cabinet.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.e.tmt.cabinet\n\nimport android.annotation.SuppressLint\nimport android.content.Intent\nimport android.graphics.Color\nimport android.graphics.PorterDuff\nimport android.os.Bundle\nimport android.view.LayoutInflater\nimport android.view.MotionEvent\nimport android.view.View\nimport android.view.animation.AlphaAnimation\nimport android.widget.Toast\nimport androidx.appcompat.app.AlertDialog\nimport androidx.appcompat.app.AppCompatActivity\nimport androidx.recyclerview.widget.GridLayoutManager\nimport androidx.recyclerview.widget.RecyclerView\nimport com.e.tmt.R\nimport com.e.tmt.memo.ServerApi\nimport kotlinx.android.synthetic.main.activity_cabinet.*\nimport kotlinx.android.synthetic.main.fragment_cabinet_list.*\nimport kotlinx.android.synthetic.main.fragment_dialog_custom.view.*\nimport kotlinx.android.synthetic.main.fragment_item_list.*\nimport okhttp3.ResponseBody\nimport retrofit2.Call\nimport retrofit2.Callback\nimport retrofit2.Response\nimport retrofit2.Retrofit\nimport retrofit2.converter.gson.GsonConverterFactory\n\n\nclass cabinet : AppCompatActivity() {\n    lateinit var cabinetAdapter: CabinetAdapter\n    lateinit var cellAdapter: CabinetAdapter\n    lateinit var itemAdapter: CabinetAdapter\n    lateinit var cabinetCardView: RecyclerView\n\n    private val retrofit = Retrofit.Builder()\n        .baseUrl(ServerApi.DOMAIN)\n        .addConverterFactory(GsonConverterFactory.create())\n        .build()\n\n    private val cabinetService = retrofit.create(CabinetService::class.java)\n\n    lateinit var allStuffs: MutableList<Stuff>\n    lateinit var theCabinetStuffs: MutableList<Stuff>\n    lateinit var theCellStuffs: MutableList<Stuff>\n\n    override fun onCreate(savedInstanceState: Bundle?) {\n        super.onCreate(savedInstanceState)\n        setContentView(R.layout.activity_cabinet)\n        setMenu()\n    }\n\n\n    private fun setMenu() {\n        val cabinetMainFragment = CabinetMainFragment()\n        val transaction = supportFragmentManager.beginTransaction()\n        transaction.add(R.id.fragmentLayout2, cabinetMainFragment)\n        transaction.commit()\n    }\n\n    fun goFind(){\n        val intent = Intent(this@cabinet, cabinetFindActivity::class.java)\n        startActivity(intent)\n    }\n\n    fun goCabinetList(){\n\n        val cabinetListFragment = CabinetListFragment()\n        val transaction = supportFragmentManager.beginTransaction()\n        transaction\n            .setCustomAnimations(\n                R.anim.fragment_fade_enter,\n                R.anim.fade_out,\n                R.anim.fade_in,\n                R.anim.fragment_fade_exit\n            )\n            .replace(R.id.fragmentLayout2, cabinetListFragment)\n            .addToBackStack(\"cabinetList\")\n            .commit()\n    }\n\n    fun goCellList(){\n        val cellListFragment = CellListFragment()\n        val transaction = supportFragmentManager.beginTransaction()\n        transaction\n            .setCustomAnimations(\n                R.anim.slide_from_right,\n                R.anim.fragment_fade_exit\n            )\n            .add(R.id.fragmentLayout2, cellListFragment)\n            .addToBackStack(\"cellList\")\n            .commit()\n    }\n\n    fun goItemList(){\n        val itemListFragment = ItemListFragment()\n        val transaction = supportFragmentManager.beginTransaction()\n        transaction\n            .setCustomAnimations(\n                R.anim.slide_from_right,\n                R.anim.fragment_fade_exit\n            )\n            .add(R.id.fragmentLayout2, itemListFragment)\n            .addToBackStack(\"itemList\")\n            .commit()\n    }\n\n\n    fun goAddItem(){\n        val itemAddFragment = ItemAddFragment()\n        val transaction = supportFragmentManager.beginTransaction()\n        transaction\n            .setCustomAnimations(\n                R.anim.fragment_fade_enter,\n                R.anim.fade_out,\n                R.anim.fade_in,\n                R.anim.fragment_fade_exit\n            )\n            .replace(R.id.fragmentLayout2, itemAddFragment)\n            .addToBackStack(\"addItem\")\n            .commit()\n    }\n\n\n    fun showAddCabinet(){\n        val mDialogView = LayoutInflater.from(this@cabinet).inflate(R.layout.fragment_dialog_custom, null)\n        val mBuilder = AlertDialog.Builder(this@cabinet)\n            .setView(mDialogView)\n        val mAlertDialog = mBuilder.show()\n       mDialogView.header.text =\"서랍장 추가\"\n        mDialogView.backButton3.setOnClickListener { mAlertDialog.dismiss() }\n        mDialogView.saveButton2.setOnClickListener {\n            val new = mDialogView.stuffTitle.text.toString()\n            addStuff(new)\n            mAlertDialog.dismiss()\n        }\n    }\n\n    fun showAddCell(){\n        val mDialogView = LayoutInflater.from(this@cabinet).inflate(R.layout.fragment_dialog_custom, null)\n        val mBuilder = AlertDialog.Builder(this@cabinet)\n            .setView(mDialogView)\n        val mAlertDialog = mBuilder.show()\n        \"공간 추가\".also { mDialogView.header.text = it }\n        mDialogView.backButton3.setOnClickListener { mAlertDialog.dismiss() }\n        mDialogView.saveButton2.setOnClickListener {\n            val new = mDialogView.stuffTitle.text.toString()\n            addStuff(new)\n            mAlertDialog.dismiss()\n        }\n    }\n\n    fun goBack() {\n        onBackPressed()\n    }\n\n    //서버와 데이터 통신\n    fun getStuff(){\n        cabinetService.getStuff().enqueue(object : Callback<List<Stuff>> {\n            override fun onResponse(call: Call<List<Stuff>>, response: Response<List<Stuff>>) {\n                val theList = response.body() as MutableList<Stuff>\n                allStuffs = theList\n                var theList2 = mutableListOf<String>()\n                for (no in 0 until theList.size) {\n                    theList2.add(theList[no].cabinetName)\n                }\n                theList2 = theList2.distinct() as MutableList<String>\n                cabinetAdapter = CabinetAdapter(theList2, \"cabinet\")\n                cabinetAdapter.stuffList.addAll(theList)\n                cabinetAdapter.notifyDataSetChanged()\n                cabinetCardView = findViewById(R.id.cabinetList)\n\n                cabinetCardView.adapter = cabinetAdapter\n                val gridLayoutManager = GridLayoutManager(this@cabinet, 2, GridLayoutManager.HORIZONTAL, false)\n                cabinetCardView.layoutManager = gridLayoutManager\n            }\n            override fun onFailure(call: Call<List<Stuff>>, t: Throwable) {\n                Toast.makeText(\n                    baseContext,\n                    \"문제가 발생했습니다.\",\n                    Toast.LENGTH_LONG\n                ).show()\n            }\n        })\n    }\n\n\n\n    fun deleteCabinet(){\n\n        val cabinetN = cabinetAdapter.selectedOne\n        val cabinetNo = cabinetAdapter.selectedNum\n        val lastTotal = cabinetAdapter.itemCount\n        cabinetService.deleteCabinet(cabinetN).enqueue(object : Callback<ResponseBody> {\n            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {\n                Toast.makeText(\n                    baseContext,\n                    \"사물함이 삭제되었습니다.\",\n                    Toast.LENGTH_LONG\n                ).show()\n                if (cabinetNo != null) {\n                    cabinetAdapter.selectedList.removeAt(cabinetNo)\n                    cabinetAdapter.notifyItemRemoved(cabinetNo)\n                    cabinetAdapter.notifyItemChanged(cabinetNo, lastTotal - cabinetNo)\n                }\n            }\n\n            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {\n                Toast.makeText(\n                    baseContext,\n                    \"문제가 생겼습니다.\",\n                    Toast.LENGTH_LONG\n                ).show()\n            }\n        })\n    }\n\n    private fun addStuff(name: String){\n\n        Toast.makeText(baseContext, name, Toast.LENGTH_SHORT).show()\n        val total = cabinetAdapter.selectedList.size\n        cabinetAdapter.selectedList.add(name)\n        cabinetAdapter.notifyItemInserted(total)\n        cabinetAdapter.notifyDataSetChanged()\n\n    }\n\n    fun getCell() {\n        if(::cabinetAdapter.isInitialized) {\n            val example = cabinetAdapter.selecCabiList\n            val cellSize = example.size\n            var example2 = mutableListOf<String>()\n\n            for (i in 0 until cellSize) {\n                example2.add(example[i].cellName)\n            }\n\n            example2 = example2.distinct() as MutableList<String>\n                cellAdapter = CabinetAdapter(example2, \"cell\")\n                theCabinetStuffs = example\n                cellAdapter.stuffList.addAll(example)\n                cellAdapter.notifyDataSetChanged()\n        }\n    }\n\n\n    fun getItems(){\n        val selectedCell = cellAdapter.selectedOne\n        if(::cellAdapter.isInitialized) {\n\n            theCellStuffs = theCabinetStuffs.filter { it.cellName == selectedCell } as MutableList<Stuff>\n            (cabinetAdapter.selecCabiList.filter { it.cellName == selectedCell } as MutableList<Stuff>).also { theCellStuffs = it }\n\n            val theList2 = mutableListOf<String>()\n            for (element in theCellStuffs) {\n                theList2.add(element.itemName)\n            }\n\n            itemAdapter = CabinetAdapter(theList2, \"item\")\n            itemAdapter.stuffList.addAll(theCellStuffs)\n            itemAdapter.notifyDataSetChanged()\n\n        }else{\n            Toast.makeText(baseContext, \"에러\", Toast.LENGTH_SHORT).show()\n        }\n    }\n\n\n    @SuppressLint(\"ClickableViewAccessibility\")\n    fun buttonEffect(button: View) {\n        button.setOnTouchListener { v, event ->\n            when (event.action) {\n\n                MotionEvent.ACTION_DOWN -> {\n                    v.startAnimation(buttonClick)\n                    //v.alpha to 0.5\n                    v.background.setColorFilter(\n                        Color.parseColor(\"#D7D7D7\"),\n                        PorterDuff.Mode.SRC_ATOP\n                    )\n\n                    v.invalidate()\n                }\n                MotionEvent.ACTION_UP -> {\n                    v.background.clearColorFilter()\n                    v.invalidate()\n                }\n            }\n            false\n        }\n    }\n\n    private val buttonClick = AlphaAnimation(1f, 0.8f)\n\n    fun bringCabinets() {\n\n    }\n\n    fun bringCells(){\n\n    }\n\n\n\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/e/tmt/cabinet/cabinet.kt	(revision fe2972389ef25b08f5b00fe1c53a19479dc77eac)
++++ app/src/main/java/com/e/tmt/cabinet/cabinet.kt	(date 1607910922000)
+@@ -60,7 +60,7 @@
+     }
+ 
+     fun goFind(){
+-        val intent = Intent(this@cabinet, cabinetFindActivity::class.java)
++        val intent = Intent(applicationContext, cabinetFindActivity::class.java)
+         startActivity(intent)
+     }
+ 
+@@ -293,14 +293,6 @@
+ 
+     private val buttonClick = AlphaAnimation(1f, 0.8f)
+ 
+-    fun bringCabinets() {
+-
+-    }
+-
+-    fun bringCells(){
+-
+-    }
+-
+ 
+ 
+ }
+\ No newline at end of file
+Index: app/src/main/java/com/e/tmt/cabinet/CabinetApi.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.e.tmt.cabinet\n\nimport com.e.tmt.memo.Memo\nimport okhttp3.ResponseBody\nimport retrofit2.Call\nimport retrofit2.Callback\nimport retrofit2.http.DELETE\nimport retrofit2.http.FormUrlEncoded\nimport retrofit2.http.GET\nimport retrofit2.http.Path\nimport java.util.*\n\nclass CabinetApi {\n    companion object{\n        val DOMAIN = \"http://34.64.143.75:1880/\"\n    }\n}\n\ninterface CabinetService {\n    //CABINET HTTP REQUESTS\n    @GET(\"things\")\n    fun getStuff(): Call<List<Stuff>>\n    //fun get(): Call<Thing>\n\n    @GET(\"item/{cell}\")\n    fun getItems1(@Path(\"cell\") cell: String): Call <List<String>>\n\n\n    @DELETE(\"cabinet/{name}\")\n    fun deleteCabinet(@Path(\"name\") name: String): Call<ResponseBody>\n\n    @DELETE(\"cell/{name}\")\n    fun deleteCell(@Path(\"name\") name: String): Call<ResponseBody>\n\n\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/e/tmt/cabinet/CabinetApi.kt	(revision fe2972389ef25b08f5b00fe1c53a19479dc77eac)
++++ app/src/main/java/com/e/tmt/cabinet/CabinetApi.kt	(date 1607866273000)
+@@ -4,10 +4,7 @@
+ import okhttp3.ResponseBody
+ import retrofit2.Call
+ import retrofit2.Callback
+-import retrofit2.http.DELETE
+-import retrofit2.http.FormUrlEncoded
+-import retrofit2.http.GET
+-import retrofit2.http.Path
++import retrofit2.http.*
+ import java.util.*
+ 
+ class CabinetApi {
+@@ -32,5 +29,11 @@
+     @DELETE("cell/{name}")
+     fun deleteCell(@Path("name") name: String): Call<ResponseBody>
+ 
++    @FormUrlEncoded
++    @POST("item/send")
++    fun sendToCabinet(
++        @Field("selected") selected: List<Int>
++    ): Call<ResponseBody>
++
+ 
+ }
+\ No newline at end of file
+Index: app/src/main/res/menu/bottom_nav_menu.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\n<menu xmlns:android=\"http://schemas.android.com/apk/res/android\">\n\n\n\n    <item\n        android:id=\"@+id/navigation_cardmaker\"\n        android:icon=\"@drawable/ic_dashboard_black_24dp\"\n        android:title=\"@string/card_maker\" />\n\n    <item\n        android:id=\"@+id/navigation_lamp\"\n        android:icon=\"@android:drawable/ic_menu_edit\"\n        android:title=\"@string/lamp\" />\n    <item\n        android:id=\"@+id/navigation_cabinet\"\n        android:icon=\"@drawable/ic_notifications_black_24dp\"\n        android:title=\"@string/cabinet\" />\n\n    <item\n        android:id=\"@+id/navigation_home\"\n        android:icon=\"@drawable/ic_home_black_24dp\"\n        android:title=\"@string/setting\" />\n\n</menu>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/menu/bottom_nav_menu.xml	(revision fe2972389ef25b08f5b00fe1c53a19479dc77eac)
++++ app/src/main/res/menu/bottom_nav_menu.xml	(date 1607909269000)
+@@ -1,9 +1,16 @@
+ <?xml version="1.0" encoding="utf-8"?>
+-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+-
+-
++<menu xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto">
+ 
+-    <item
++<item
++    android:id="@+id/action_search"
++    android:icon="@drawable/view3"
++    android:title="검색"
++    app:showAsAction="ifRoom|collapseActionView"
++    app:actionViewClass="android.widget.SearchView"
++    />
++
++    <!--item
+         android:id="@+id/navigation_cardmaker"
+         android:icon="@drawable/ic_dashboard_black_24dp"
+         android:title="@string/card_maker" />
+@@ -20,6 +27,6 @@
+     <item
+         android:id="@+id/navigation_home"
+         android:icon="@drawable/ic_home_black_24dp"
+-        android:title="@string/setting" />
++        android:title="@string/setting" /-->
+ 
+ </menu>
+\ No newline at end of file
+Index: app/src/main/res/layout/activity_cabinet_find.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\n<androidx.constraintlayout.widget.ConstraintLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\n    xmlns:tools=\"http://schemas.android.com/tools\"\n    android:layout_width=\"match_parent\"\n    android:layout_height=\"match_parent\"\n    tools:context=\".cabinet.cabinetFindActivity\"\n    android:layout_gravity=\"center\"\n    android:background=\"@color/myWhite\">\n\n\n        <TextView\n            android:id=\"@+id/findItem\"\n            android:layout_width=\"wrap_content\"\n            android:layout_height=\"wrap_content\"\n            android:layout_marginTop=\"20dp\"\n            android:layout_marginLeft=\"10dp\"\n            android:fontFamily=\"@font/paybooc_bold\"\n            android:gravity=\"center_horizontal\"\n            android:paddingLeft=\"8dp\"\n            android:paddingRight=\"8dp\"\n            android:text=\"물건 관리\"\n            android:textAlignment=\"center\"\n            android:textColor=\"@color/colorPrimaryDark\"\n            android:textSize=\"28sp\"\n            android:textStyle=\"bold\"\n            app:layout_constraintLeft_toLeftOf=\"parent\"\n            app:layout_constraintTop_toTopOf=\"parent\"\n            tools:layout_conversion_absoluteHeight=\"57dp\"\n            tools:layout_conversion_absoluteWidth=\"178dp\"\n            android:layout_marginStart=\"10dp\" />\n\n        <LinearLayout\n            android:id=\"@+id/categories\"\n            android:layout_width=\"wrap_content\"\n            android:layout_height=\"wrap_content\"\n            app:layout_constraintEnd_toEndOf=\"parent\"\n            app:layout_constraintHorizontal_bias=\"0.5\"\n            app:layout_constraintStart_toStartOf=\"parent\"\n            app:layout_constraintTop_toBottomOf=\"@id/findItem\"\n            app:layout_constraintRight_toRightOf=\"parent\"\n            app:layout_constraintLeft_toLeftOf=\"parent\"\n            android:paddingTop=\"50dp\"\n            android:orientation=\"horizontal\"\n            android:gravity=\"center_horizontal\">\n            <LinearLayout\n                android:layout_width=\"150dp\"\n                android:layout_height=\"wrap_content\"\n                android:orientation=\"vertical\"\n                android:layout_marginEnd=\"30dp\"\n                android:layout_marginRight=\"30dp\">\n                <TextView\n                    android:layout_width=\"match_parent\"\n                    android:layout_height=\"wrap_content\"\n                    android:textSize=\"22sp\"\n                    android:fontFamily=\"@font/paybooc_bold\"\n                    android:text=\"서랍장\"\n                    android:layout_marginBottom=\"1dp\"\n                    android:gravity=\"center\"/>\n                <Spinner\n                    android:id=\"@+id/spinnerCabinet\"\n                    android:layout_width=\"150dp\"\n                    android:layout_height=\"40dp\"\n                    android:layout_marginEnd=\"50dp\"\n                    android:layout_marginRight=\"50dp\"\n                    android:paddingStart=\"3dp\"\n                    android:paddingLeft=\"3dp\"\n                    android:background=\"@drawable/back_border2\"\n                    android:gravity=\"center\"\n                    />\n            </LinearLayout>\n            <LinearLayout\n                android:layout_width=\"150dp\"\n                android:layout_height=\"wrap_content\"\n                android:orientation=\"vertical\">\n                <TextView\n                    android:layout_width=\"match_parent\"\n                    android:layout_height=\"wrap_content\"\n                    android:textSize=\"22sp\"\n                    android:fontFamily=\"@font/paybooc_bold\"\n                    android:text=\"공간\"\n                    android:layout_marginBottom=\"1dp\"\n                    android:gravity=\"center\"/>\n                <Spinner\n                    android:id=\"@+id/spinnerCell\"\n                    android:layout_width=\"150dp\"\n                    android:layout_height=\"40dp\"\n                    android:paddingStart=\"3dp\"\n                    android:paddingLeft=\"3dp\"\n                    android:background=\"@drawable/back_border2\" />\n            </LinearLayout>\n        </LinearLayout>\n\n    <androidx.recyclerview.widget.RecyclerView\n        android:id=\"@+id/findingItems\"\n        android:layout_width=\"match_parent\"\n        android:layout_height=\"300dp\"\n        android:nestedScrollingEnabled=\"false\"\n        android:layout_marginTop=\"30dp\"\n        app:layout_constraintEnd_toEndOf=\"parent\"\n        app:layout_constraintStart_toStartOf=\"parent\"\n        app:layout_constraintTop_toBottomOf=\"@+id/categories\"\n        tools:layout_conversion_absoluteHeight=\"194dp\"\n        tools:layout_conversion_absoluteWidth=\"411dp\"\n        app:layout_behavior=\"@string/appbar_scrolling_view_behavior\"/>\n\n    <ImageButton\n        android:id=\"@+id/toCabinet\"\n        android:layout_width=\"60dp\"\n        android:layout_height=\"60dp\"\n        android:scaleType=\"fitCenter\"\n        android:src=\"@drawable/led2\"\n        android:background=\"@color/myWhite\"\n        app:layout_constraintRight_toRightOf=\"parent\"\n        android:layout_marginEnd=\"20dp\"\n        app:layout_constraintTop_toBottomOf=\"@id/findingItems\"\n        android:layout_marginRight=\"20dp\" />\n\n</androidx.constraintlayout.widget.ConstraintLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_cabinet_find.xml	(revision fe2972389ef25b08f5b00fe1c53a19479dc77eac)
++++ app/src/main/res/layout/activity_cabinet_find.xml	(date 1607911176000)
+@@ -19,7 +19,7 @@
+             android:gravity="center_horizontal"
+             android:paddingLeft="8dp"
+             android:paddingRight="8dp"
+-            android:text="물건 관리"
++            android:text="@string/findThings"
+             android:textAlignment="center"
+             android:textColor="@color/colorPrimaryDark"
+             android:textSize="28sp"
+@@ -29,7 +29,16 @@
+             tools:layout_conversion_absoluteHeight="57dp"
+             tools:layout_conversion_absoluteWidth="178dp"
+             android:layout_marginStart="10dp" />
+-
++        <SearchView
++            android:id="@+id/searchStuff"
++            android:layout_width="match_parent"
++            android:layout_height="50dp"
++            android:layout_marginTop="20dp"
++            android:iconifiedByDefault="false"
++            app:layout_constraintTop_toBottomOf="@id/findItem"
++            app:layout_constraintLeft_toLeftOf="parent"
++            android:queryHint="물건 이름"
++            app:layout_constraintRight_toRightOf="parent" />
+         <LinearLayout
+             android:id="@+id/categories"
+             android:layout_width="wrap_content"
+@@ -37,12 +46,13 @@
+             app:layout_constraintEnd_toEndOf="parent"
+             app:layout_constraintHorizontal_bias="0.5"
+             app:layout_constraintStart_toStartOf="parent"
+-            app:layout_constraintTop_toBottomOf="@id/findItem"
++            app:layout_constraintTop_toBottomOf="@id/searchStuff"
+             app:layout_constraintRight_toRightOf="parent"
+             app:layout_constraintLeft_toLeftOf="parent"
+-            android:paddingTop="50dp"
++            android:paddingTop="20dp"
+             android:orientation="horizontal"
+             android:gravity="center_horizontal">
++
+             <LinearLayout
+                 android:layout_width="150dp"
+                 android:layout_height="wrap_content"
+@@ -54,7 +64,7 @@
+                     android:layout_height="wrap_content"
+                     android:textSize="22sp"
+                     android:fontFamily="@font/paybooc_bold"
+-                    android:text="서랍장"
++                    android:text="@string/cabinet1"
+                     android:layout_marginBottom="1dp"
+                     android:gravity="center"/>
+                 <Spinner
+@@ -65,9 +75,10 @@
+                     android:layout_marginRight="50dp"
+                     android:paddingStart="3dp"
+                     android:paddingLeft="3dp"
++                    android:paddingEnd="0dp"
+                     android:background="@drawable/back_border2"
+                     android:gravity="center"
+-                    />
++                    android:paddingRight="0dp" />
+             </LinearLayout>
+             <LinearLayout
+                 android:layout_width="150dp"
+@@ -78,7 +89,7 @@
+                     android:layout_height="wrap_content"
+                     android:textSize="22sp"
+                     android:fontFamily="@font/paybooc_bold"
+-                    android:text="공간"
++                    android:text="@string/space"
+                     android:layout_marginBottom="1dp"
+                     android:gravity="center"/>
+                 <Spinner
+@@ -87,15 +98,18 @@
+                     android:layout_height="40dp"
+                     android:paddingStart="3dp"
+                     android:paddingLeft="3dp"
+-                    android:background="@drawable/back_border2" />
++                    android:paddingEnd="0dp"
++                    android:background="@drawable/back_border2"
++                    android:paddingRight="0dp" />
+             </LinearLayout>
++
++
+         </LinearLayout>
+ 
+     <androidx.recyclerview.widget.RecyclerView
+         android:id="@+id/findingItems"
+         android:layout_width="match_parent"
+         android:layout_height="300dp"
+-        android:nestedScrollingEnabled="false"
+         android:layout_marginTop="30dp"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintStart_toStartOf="parent"
+@@ -114,6 +128,7 @@
+         app:layout_constraintRight_toRightOf="parent"
+         android:layout_marginEnd="20dp"
+         app:layout_constraintTop_toBottomOf="@id/findingItems"
+-        android:layout_marginRight="20dp" />
++        android:layout_marginRight="20dp"
++        android:contentDescription="@string/sendtocabinet" />
+ 
+ </androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
+Index: app/src/main/res/values/strings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><resources>\n    <string name=\"app_name\">우리쌤 테이블</string>\n    <string name=\"title_home\"></string>\n    <string name=\"title_dashboard\">Dashboard</string>\n    <string name=\"title_notifications\">Notifications</string>\n    <string name=\"hi\">image</string>\n    <string name=\"homeTitle\">우리반 선생님의 \\n똑똑한 메이커 테이블</string>\n\n    <string name=\"card_maker\">카드 만들기</string>\n    <string name=\"lamp\">메모하기</string>\n    <string name=\"cabinet\">물건 찾기</string>\n    <string name=\"setting\">설정</string>\n    <string name=\"lampRow1\">선택</string>\n    <string name=\"lampRow2\">작성시각</string>\n    <string name=\"lampRow3\">메모</string>\n    <string name=\"check\">CheckBox</string>\n    <string name=\"deletebutton\">deletebutton</string>\n    <string name=\"plusbutton\">plusbutton</string>\n    <string name=\"editbutton\">editbutton</string>\n    <string name=\"sendtolamp\">SendtoLamp</string>\n    <!-- TODO: Remove or change this placeholder text -->\n    <string name=\"hello_blank_fragment\">Hello blank fragment</string>\n    <string name=\"textNo\">번호</string>\n    <string name=\"datetime\">datetime</string>\n    <string name=\"content\">content</string>\n    <string name=\"number\">number</string>\n    <string name=\"title1\">우리반 선생님의</string>\n    <string name=\"title2\">똑똑한 메이커 테이블</string>\n    <string name=\"card\">카드 만들기</string>\n    <string name=\"memo\">메모 램프</string>\n    <string name=\"cabinet2\">반짝 서랍장</string>\n    <string name=\"textTitle\">제목</string>\n    <string name=\"addMemoContent\">내용</string>\n    <string name=\"addMemoTtiel\">제목</string>\n    <string name=\"saveButton\">저장</string>\n    <string name=\"backButton\">돌아가기</string>\n    <string name=\"addMemoEditor\">쓰는 사람</string>\n    <string name=\"addTitle\">메모 추가</string>\n    <string name=\"title\">title</string>\n    <string name=\"editTextTitle\">메모 수정</string>\n    <string name=\"name\">Name</string>\n    <string name=\"editTitle\">Title</string>\n    <string name=\"detailButton\">세부정보 보기</string>\n    <string name=\"onepagetitle\">메모내용</string>\n    <string name=\"onetexttitle\">제목</string>\n    <string name=\"onetextcontent\">세부 내용</string>\n    <string name=\"goback\">돌아가기</string>\n    <string name=\"edittexttitle\">메모수정</string>\n    <string name=\"content1\">Content</string>\n    <string name=\"memolamp\">메모램프</string>\n    <string name=\"findItem\">물건찾기</string>\n    <string name=\"whereIsIt\">그게 어디있더라...</string>\n    <string name=\"where\">그게 어디 있더라...?</string>\n    <string name=\"manage\">관리하기</string>\n    <string name=\"cabinetTitle\">그 서랍장</string>\n    <string name=\"manageTitle\">관리하기</string>\n\n</resources>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/values/strings.xml	(revision fe2972389ef25b08f5b00fe1c53a19479dc77eac)
++++ app/src/main/res/values/strings.xml	(date 1607911010000)
+@@ -18,7 +18,6 @@
+     <string name="plusbutton">plusbutton</string>
+     <string name="editbutton">editbutton</string>
+     <string name="sendtolamp">SendtoLamp</string>
+-    <!-- TODO: Remove or change this placeholder text -->
+     <string name="hello_blank_fragment">Hello blank fragment</string>
+     <string name="textNo">번호</string>
+     <string name="datetime">datetime</string>
+@@ -54,5 +53,9 @@
+     <string name="manage">관리하기</string>
+     <string name="cabinetTitle">그 서랍장</string>
+     <string name="manageTitle">관리하기</string>
++    <string name="findThings">물건 찾기</string>
++    <string name="cabinet1">서랍장</string>
++    <string name="space">공간</string>
++    <string name="sendtocabinet">sendToCabinet</string>
+ 
+ </resources>
+\ No newline at end of file
+Index: app/src/main/java/com/e/tmt/MainActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>\npackage com.e.tmt\n\nimport android.annotation.SuppressLint\nimport android.content.Intent\nimport android.graphics.Color\nimport android.graphics.PorterDuff\nimport android.os.Bundle\nimport android.view.MotionEvent\nimport android.view.View\nimport android.view.animation.AlphaAnimation\nimport androidx.appcompat.app.AppCompatActivity\nimport androidx.recyclerview.widget.LinearLayoutManager\nimport com.e.tmt.cabinet.CabinetAdapter\nimport com.e.tmt.cabinet.cabinet\nimport com.e.tmt.memo.lamp\nimport kotlinx.android.synthetic.main.activity_main.*\nimport kotlinx.android.synthetic.main.fragment_cabinet_list.*\n\n\nclass MainActivity : AppCompatActivity() {\n\n    override fun onCreate(savedInstanceState: Bundle?) {\n        super.onCreate(savedInstanceState)\n\n        setContentView(R.layout.activity_main)\n\n        buttonEffect(lampButton)\n        buttonEffect(cardButton)\n        buttonEffect(cabinetButton)\n        buttonEffect(settingsButton)\n\n        lampButton.setOnClickListener{\n            val intent = Intent(this, lamp::class.java)\n            startActivity(intent)\n        }\n\n        cardButton.setOnClickListener{\n            val intent = Intent(this, cards::class.java)\n            startActivity(intent)\n        }\n\n        cabinetButton.setOnClickListener{\n            val intent = Intent(this, cabinet::class.java)\n            startActivity(intent)\n        }\n\n    }\n\n    @SuppressLint(\"ClickableViewAccessibility\")\nfun buttonEffect(button: View) {\n    button.setOnTouchListener { v, event ->\n        when (event.action) {\n\n            MotionEvent.ACTION_DOWN -> {\n                v.startAnimation(buttonClick)\n                v.background.setColorFilter(\n                    Color.parseColor(\"#464545\"),\n                    PorterDuff.Mode.SRC_ATOP\n                )\n\n                v.invalidate()\n            }\n            MotionEvent.ACTION_UP -> {\n                v.background.clearColorFilter()\n                v.invalidate()\n            }\n        }\n        false\n    }\n}\n\nprivate val buttonClick = AlphaAnimation(1f, 0.8f)\n}\n\n\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/e/tmt/MainActivity.kt	(revision fe2972389ef25b08f5b00fe1c53a19479dc77eac)
++++ app/src/main/java/com/e/tmt/MainActivity.kt	(date 1607863948000)
+@@ -10,13 +10,9 @@
+ import android.view.View
+ import android.view.animation.AlphaAnimation
+ import androidx.appcompat.app.AppCompatActivity
+-import androidx.recyclerview.widget.LinearLayoutManager
+-import com.e.tmt.cabinet.CabinetAdapter
+ import com.e.tmt.cabinet.cabinet
+ import com.e.tmt.memo.lamp
+ import kotlinx.android.synthetic.main.activity_main.*
+-import kotlinx.android.synthetic.main.fragment_cabinet_list.*
+-
+ 
+ class MainActivity : AppCompatActivity() {
+ 
