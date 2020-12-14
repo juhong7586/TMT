@@ -3,13 +3,16 @@ package com.e.tmt.cabinet
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.e.tmt.R
-import kotlinx.android.synthetic.main.item_recycler.view.*
 import kotlinx.android.synthetic.main.stuff_recycler.view.*
+import java.util.*
 
-class ItemAdapter(private val inputList: MutableList<Stuff>): RecyclerView.Adapter<ItemAdapter.ItemHolder>(){
+class ItemAdapter(inputList: MutableList<Stuff>): RecyclerView.Adapter<ItemAdapter.ItemHolder>(),
+    Filterable {
     var stuffList = mutableListOf<Stuff>()
     var cabinetList = mutableListOf<String>()
     var selectedList = inputList
@@ -18,6 +21,8 @@ class ItemAdapter(private val inputList: MutableList<Stuff>): RecyclerView.Adapt
     var selectedNums = mutableListOf<Int>()
     var selectedNum: Int? = null
     var selectedOne: String = ""
+
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemAdapter.ItemHolder {
         val itemView = LayoutInflater.from(parent.context)
@@ -29,10 +34,9 @@ class ItemAdapter(private val inputList: MutableList<Stuff>): RecyclerView.Adapt
         return selectedList.size
     }
     override fun onBindViewHolder(holder: ItemAdapter.ItemHolder, position: Int) {
-        var cell = selectedList.get(holder.adapterPosition)
+        val cell = selectedList[holder.adapterPosition]
         holder.setItems(cell)
     }
-
 
 
     inner class ItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
@@ -44,9 +48,9 @@ class ItemAdapter(private val inputList: MutableList<Stuff>): RecyclerView.Adapt
             itemView.checkBox4.setOnCheckedChangeListener { buttonView, isChecked ->
                 if (isChecked) {
 
-                    var name = itemView.itemName.text
+                    val name = itemView.itemName.text
                     Toast.makeText(
-                        itemView.context, "선택한 물건: ${name}",
+                        itemView.context, "선택한 물건: $name",
                         Toast.LENGTH_SHORT
                     ).show()
 
@@ -58,6 +62,42 @@ class ItemAdapter(private val inputList: MutableList<Stuff>): RecyclerView.Adapt
                 } else {
                     selectedList[adapterPosition].selected = 0
                 }
+            }
+        }
+    }
+
+    override fun getFilter( ): Filter {
+        return object: Filter(){
+            override fun performFiltering(constraint: CharSequence?): FilterResults{
+                val charSearch = constraint?.toString()?.toLowerCase()
+                val filterResults = FilterResults()
+                    selecCabiList.clear()
+                    if(charSearch == null || charSearch.isEmpty()){
+                        filterResults.values  =  stuffList
+                        selecCabiList = stuffList
+                    }else{
+                        //for (stuff in stuffList){
+                        //    var theName = stuff.itemName.toLowerCase()
+                        for (theStuff in 0 until stuffList.size){
+                            var sstuff = stuffList[theStuff]
+                            var theName = stuffList[theStuff].itemName.toString().toLowerCase()
+                            if(theName.contains(charSearch.toString(), ignoreCase = true) ){
+                                selecCabiList.add(sstuff)
+                            }
+                        }
+                        //stuffList.filter { it.itemName.contains(charSearch.toString(), ignoreCase = true) }
+                    }
+
+                //selecCabiList= stuffList.filter { it.itemName.contains(charSearch.toString(), ignoreCase = true) } as MutableList<Stuff>
+                filterResults.values = selecCabiList
+                //notifyDataSetChanged()
+                return filterResults
+            }
+
+            override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+                selectedList = selecCabiList
+                notifyDataSetChanged()
+                //selecCabiList.removeAll(selecCabiList)
             }
         }
     }

@@ -18,7 +18,6 @@
     <string name="plusbutton">plusbutton</string>
     <string name="editbutton">editbutton</string>
     <string name="sendtolamp">SendtoLamp</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="textNo">번호</string>
     <string name="datetime">datetime</string>
@@ -54,5 +53,9 @@
     <string name="manage">관리하기</string>
     <string name="cabinetTitle">그 서랍장</string>
     <string name="manageTitle">관리하기</string>
+    <string name="findThings">물건 찾기</string>
+    <string name="cabinet1">서랍장</string>
+    <string name="space">공간</string>
+    <string name="sendtocabinet">sendToCabinet</string>
 
 </resources>

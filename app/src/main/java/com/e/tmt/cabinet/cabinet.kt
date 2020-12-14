@@ -60,7 +60,7 @@ class cabinet : AppCompatActivity() {
     }
 
     fun goFind(){
-        val intent = Intent(this@cabinet, cabinetFindActivity::class.java)
+        val intent = Intent(applicationContext, cabinetFindActivity::class.java)
         startActivity(intent)
     }
 
@@ -292,14 +292,6 @@ class cabinet : AppCompatActivity() {
     }
 
     private val buttonClick = AlphaAnimation(1f, 0.8f)
-
-    fun bringCabinets() {
-
-    }
-
-    fun bringCells(){
-
-    }
 
 
 
