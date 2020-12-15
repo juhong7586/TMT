@@ -20,7 +20,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
             android:layout_marginBottom="50dp"
-            android:fontFamily="@font/paybooc_bold"
+            android:fontFamily="@font/gonggothic_medium"
             android:gravity="center_horizontal"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
@@ -64,12 +64,12 @@
 
         <ImageButton
             android:id="@+id/backButton1"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:background="@color/myWhite"
-            android:src="@drawable/back2"
+            android:src="@drawable/before"
             android:orientation="horizontal"
-            android:layout_marginRight="140dp"
+            android:layout_marginRight="60dp"
             android:scaleType="fitCenter"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
@@ -77,40 +77,41 @@
 
     <ImageButton
         android:id="@+id/deleteButton1"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:padding="2.5dp"
         android:layout_marginEnd="5dp"
         android:background="@color/myWhite"
         android:contentDescription="@string/deletebutton"
         android:focusable="true"
         android:orientation="horizontal"
         android:scaleType="fitCenter"
-        android:src="@drawable/delete3"
+        android:src="@drawable/delete"
         android:layout_marginRight="5dp" />
 
     <ImageButton
         android:id="@+id/addButton1"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:background="@color/myWhite"
-        android:layout_marginEnd="5dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginRight="60dp"
         android:contentDescription="@string/plusbutton"
         android:focusable="true"
         android:orientation="horizontal"
         android:scaleType="centerCrop"
-        android:src="@drawable/plus3"
+        android:src="@drawable/add"
          />
     <ImageButton
         android:id="@+id/nextButton1"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:background="@color/myWhite"
         android:contentDescription="nextButton"
         android:focusable="true"
         android:orientation="horizontal"
         android:scaleType="centerCrop"
-        android:src="@drawable/next1" />
+        android:src="@drawable/next" />
     </LinearLayout>
     </LinearLayout>
 

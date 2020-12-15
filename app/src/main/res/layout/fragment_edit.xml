@@ -16,7 +16,7 @@
         android:layout_marginLeft="8dp"
         android:gravity="center_horizontal"
         android:textAlignment="center"
-        android:fontFamily="@font/uhbeenamsoyoung_bold"
+        android:fontFamily="@font/cookierun_bold"
         android:text="@string/edittexttitle"
         android:textColor="#656565"
         android:textSize="38sp"
@@ -31,7 +31,7 @@
         android:layout_marginTop="32dp"
         android:textSize = "15sp"
 
-        android:fontFamily="@font/paybooc_font"
+        android:fontFamily="sans-serif"
         android:inputType="textPersonName"
         android:text="@string/name"
         app:layout_constraintEnd_toEndOf="parent"
@@ -45,7 +45,7 @@
         android:layout_height="wrap_content"
         android:textSize = "15sp"
 
-        android:fontFamily="@font/paybooc_font"
+        android:fontFamily="sans-serif"
         android:inputType="textPersonName"
         android:text="@string/editTitle"
         app:layout_constraintEnd_toEndOf="parent"
@@ -58,7 +58,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize = "15sp"
-        android:fontFamily="@font/paybooc_font"
+        android:fontFamily="sans-serif"
         android:gravity="top|start"
         android:inputType="textMultiLine|textPersonName"
         android:minLines="10"
@@ -81,30 +81,25 @@
 
         <ImageButton
             android:id="@+id/editBackButton"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:orientation="horizontal"
             android:scaleType="fitCenter"
             android:background="@color/myWhite"
-            android:src="@drawable/back2"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:src="@drawable/before" />
 
         <ImageButton
             android:id="@+id/editSaveButton"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_marginStart="150dp"
-            android:layout_marginLeft="150dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="190dp"
+            android:layout_marginLeft="190dp"
             android:layout_marginEnd="10dp"
             android:layout_marginRight="10dp"
             android:orientation="horizontal"
             android:scaleType="fitCenter"
             android:background="@color/myWhite"
-            android:src="@drawable/save2"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="parent"
-            tools:layout_editor_absoluteY="151dp" />
+            android:src="@drawable/memo_edit" />
 
     </LinearLayout>
 

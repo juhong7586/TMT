@@ -18,11 +18,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:layout_marginLeft="10dp"
-            android:fontFamily="@font/paybooc_bold"
+            android:fontFamily="@font/gonggothic_medium"
             android:gravity="center_horizontal"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
-            android:text="물건 관리"
+            android:text="물건 찾기"
             android:textAlignment="center"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="28sp"
@@ -45,7 +45,34 @@
             tools:layout_conversion_absoluteHeight="194dp"
             tools:layout_conversion_absoluteWidth="411dp"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
-
+        <LinearLayout
+            android:id="@+id/theItem"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:background="@drawable/back_border2"
+            android:layout_gravity="center_horizontal">
+            <TextView
+                android:fontFamily="@font/gonggothic_light"
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="선택한 물건:"
+                android:paddingLeft="10dp"
+                android:textSize="18sp"
+                android:layout_gravity="center_horizontal|center_vertical" />
+            <TextView
+                android:fontFamily="@font/gonggothic_light"
+                android:id="@+id/theItemName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text=""
+                android:textSize="18sp"
+                android:paddingRight="15dp"
+                android:layout_gravity="center_horizontal|center_vertical"/>
+        </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="30dp"
@@ -81,7 +108,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:gravity="center_horizontal"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="20dp"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -89,34 +116,35 @@
 
             <ImageButton
                 android:id="@+id/backButton5"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_marginRight="190dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginRight="100dp"
                 android:background="@color/myWhite"
                 android:orientation="horizontal"
                 android:scaleType="fitCenter"
-                android:src="@drawable/back2"
+                android:src="@drawable/before"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent" />
 
             <ImageButton
                 android:id="@+id/deleteButton5"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:padding="2.5dp"
                 android:layout_marginEnd="5dp"
                 android:background="@color/myWhite"
                 android:contentDescription="@string/deletebutton"
                 android:focusable="true"
                 android:orientation="horizontal"
                 android:scaleType="fitCenter"
-                android:src="@drawable/delete3"
+                android:src="@drawable/delete"
                 android:layout_marginRight="5dp" />
 
             <ImageButton
                 android:id="@+id/addButton5"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:background="@color/myWhite"
                 android:layout_marginEnd="5dp"
                 android:layout_marginRight="5dp"
@@ -124,8 +152,24 @@
                 android:focusable="true"
                 android:orientation="horizontal"
                 android:scaleType="centerCrop"
-                android:src="@drawable/plus3"
+                android:src="@drawable/add"
                 />
+
+            <ImageButton
+                android:id="@+id/editItemButton"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@color/myWhite"
+                android:layout_marginEnd="5dp"
+                android:layout_marginRight="5dp"
+                android:contentDescription="@string/editItem"
+                android:focusable="true"
+                android:orientation="horizontal"
+                android:scaleType="centerCrop"
+                android:src="@drawable/edit"
+                android:visibility="gone"
+                />
+
 
         </LinearLayout>
     </LinearLayout>

@@ -29,7 +29,7 @@
         android:layout_marginEnd="2dp"
         android:layout_marginRight="2dp"
         android:layout_weight="1"
-        android:fontFamily="@font/paybooc_font"
+        android:fontFamily="sans-serif"
         android:gravity="center_horizontal"
         android:paddingLeft="10dip"
         android:paddingRight="10dip"
@@ -44,7 +44,7 @@
         android:background="#FFFFFF"
         android:clickable="true"
         android:focusable="true"
-        android:fontFamily="@font/paybooc_font"
+        android:fontFamily="sans-serif"
         android:paddingLeft="10dip"
         android:paddingRight="10dip"
         android:text="@string/title" />

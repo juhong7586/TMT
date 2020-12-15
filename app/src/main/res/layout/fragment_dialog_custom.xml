@@ -20,10 +20,11 @@
         android:paddingTop="2dp"
         android:paddingLeft="10dp"
         android:layout_marginLeft="20dp"
-        android:fontFamily="@font/paybooc_bold"
-        android:text="사물함 추가"
+        android:fontFamily="@font/gonggothic_medium"
+        android:text="@string/addCabinet"
         android:textColor="#555454"
-        android:textSize="27sp" />
+        android:textSize="27sp"
+        android:layout_marginStart="20dp" />
     <EditText
         android:id="@+id/stuffTitle"
         android:layout_width="match_parent"
@@ -32,9 +33,9 @@
         android:layout_marginEnd="35dp"
         android:layout_marginBottom="20dp"
         android:layout_marginTop="20dp"
-        android:fontFamily="@font/paybooc_medium"
+        android:fontFamily="@font/gonggothic_light"
         android:textSize="16sp"
-        android:hint="이름 입력"
+        android:hint="@string/inserName"
         android:text=""
         android:autofillHints="이름 입력"
         android:inputType="text"
@@ -43,19 +44,20 @@
         app:layout_constraintStart_toStartOf="parent" />
     <ImageButton
         android:id="@+id/backButton3"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:background="@null"
         android:clickable="true"
         android:scaleType="fitCenter"
-        android:src="@drawable/back2"
+        android:src="@drawable/before"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/saveButton2"
-        android:focusable="true" />
+        app:layout_constraintStart_toStartOf="@id/stuffTitle"
+        android:focusable="true"
+        android:contentDescription="@string/back" />
     <ImageButton
         android:id="@+id/saveButton2"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:clickable="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
@@ -63,7 +65,7 @@
         android:layout_marginTop="10dp"
         android:background="@null"
         android:scaleType="fitCenter"
-        android:src="@drawable/save2"
+        android:src="@drawable/upload"
         app:layout_constraintTop_toBottomOf="@id/stuffTitle"
         app:layout_constraintEnd_toEndOf="@id/stuffTitle"
         android:focusable="true" />

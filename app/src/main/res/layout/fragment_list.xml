@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     tools:context=".memo.ListFragment">
 
     <LinearLayout
@@ -15,6 +16,7 @@
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:layout_gravity="center"
         app:layout_constraintStart_toStartOf="parent">
 
         <TableLayout
@@ -42,10 +44,9 @@
                     android:layout_column="1"
                     android:layout_gravity="center"
                     android:background="@color/Astronaut"
-                    android:fontFamily="@font/paybooc_bold"
-                    android:gravity="center_horizontal"
+                    android:fontFamily="@font/gonggothic_medium"
+                    android:gravity="center"
                     android:paddingLeft="10dip"
-                    android:paddingTop="6dp"
                     android:paddingRight="10dip"
                     android:text="@string/lampRow1"
                     android:textAlignment="center"
@@ -59,10 +60,9 @@
                     android:layout_marginEnd="2dp"
                     android:layout_marginRight="2dp"
                     android:background="@color/Astronaut"
-                    android:fontFamily="@font/paybooc_bold"
-                    android:gravity="center_horizontal"
+                    android:fontFamily="@font/gonggothic_medium"
+                    android:gravity="center"
                     android:paddingLeft="10dip"
-                    android:paddingTop="6dp"
                     android:paddingRight="10dip"
                     android:text="@string/textNo"
                     android:textAlignment="center"
@@ -75,9 +75,8 @@
                     android:layout_marginEnd="2dp"
                     android:layout_marginRight="2dp"
                     android:background="@color/Astronaut"
-                    android:fontFamily="@font/paybooc_bold"
-                    android:gravity="center_horizontal"
-                    android:paddingTop="6dp"
+                    android:fontFamily="@font/gonggothic_medium"
+                    android:gravity="center"
                     android:text="@string/textTitle"
                     android:textAlignment="center"
                     android:textColor="@color/myWhite" />
@@ -88,10 +87,9 @@
                     android:layout_column="4"
                     android:layout_gravity="center"
                     android:background="@color/Astronaut"
-                    android:fontFamily="@font/paybooc_bold"
-                    android:gravity="center_horizontal"
+                    android:fontFamily="@font/gonggothic_medium"
+                    android:gravity="center"
                     android:paddingLeft="10dip"
-                    android:paddingTop="6dp"
                     android:paddingRight="10dip"
                     android:text="@string/lampRow2"
                     android:textAlignment="center"
@@ -123,50 +121,40 @@
             android:layout_marginTop="20dp"
             android:layout_marginLeft="7dp"
             android:orientation="horizontal"
+            android:gravity="center"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.304"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/memoList">
+            app:layout_constraintTop_toBottomOf="@+id/memoList"
+            android:layout_marginStart="7dp">
 
             <ImageButton
                 android:id="@+id/deleteButton"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_marginEnd="10dp"
                 android:background="#ffffff"
                 android:contentDescription="@string/deletebutton"
                 android:focusable="true"
                 android:orientation="horizontal"
-
+                android:layout_gravity="center_vertical"
                 android:scaleType="fitCenter"
-                android:src="@drawable/delete3"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/editButton"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tableLayout"
-                app:layout_constraintVertical_bias="0.0"
+                android:src="@drawable/delete"
                 android:layout_marginRight="10dp" />
 
             <ImageButton
                 android:id="@+id/addButton"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginRight="20dp"
+
+                android:layout_gravity="center_vertical"
                 android:background="#ffffff"
                 android:contentDescription="@string/plusbutton"
                 android:focusable="true"
                 android:orientation="horizontal"
                 android:scaleType="centerCrop"
-                android:src="@drawable/plus3"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/lightOn"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/editButton"
-                app:layout_constraintTop_toBottomOf="@+id/tableLayout"
-                app:layout_constraintVertical_bias="0.0" />
+                android:src="@drawable/add"/>
 
 
             <ImageButton
@@ -184,12 +172,8 @@
                 android:contentDescription="@string/sendtolamp"
                 android:focusable="true"
                 android:orientation="horizontal"
-
                 android:scaleType="centerCrop"
-                android:src="@drawable/light2"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                android:src="@drawable/light2"/>
 
 
         </LinearLayout>

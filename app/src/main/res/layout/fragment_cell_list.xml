@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="10dp"
-        android:fontFamily="@font/paybooc_bold"
+        android:fontFamily="@font/gonggothic_medium"
         android:gravity="center_horizontal"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
@@ -43,38 +43,39 @@
         android:layout_height="330dp"
         android:nestedScrollingEnabled="false"
         android:layout_marginTop="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/manageCell"
         tools:layout_conversion_absoluteHeight="194dp"
         tools:layout_conversion_absoluteWidth="411dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
     <LinearLayout
+        android:id="@+id/theCell"
         android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:fontFamily="@font/paybooc_medium"
-        android:textSize="20sp"
+        android:layout_height="35dp"
         android:orientation="horizontal"
+        android:layout_marginTop="10dp"
         android:background="@drawable/back_border2"
-        android:layout_gravity="center_horizontal"
-        android:visibility="gone">
+        android:layout_gravity="center_horizontal">
         <TextView
+            android:fontFamily="@font/gonggothic_light"
             android:layout_width="110dp"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal|center_vertical"
-            android:text="선택한 서랍장:"
+            android:text="선택한 공간:"
             android:paddingLeft="10dp"
+            android:textSize="18sp"
             android:layout_gravity="center_horizontal|center_vertical" />
         <TextView
-            android:id="@+id/theStuff"
+            android:fontFamily="@font/gonggothic_light"
+            android:id="@+id/theCellName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:text="예시"
+            android:text=""
+            android:textSize="18sp"
             android:paddingRight="15dp"
             android:layout_gravity="center_horizontal|center_vertical"/>
     </LinearLayout>
+
 
     <LinearLayout
         android:id="@+id/linearLayout2"
@@ -82,7 +83,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:gravity="center_horizontal"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -90,12 +91,12 @@
 
         <ImageButton
             android:id="@+id/backButton2"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:background="@color/myWhite"
-            android:src="@drawable/back2"
+            android:src="@drawable/before"
             android:orientation="horizontal"
-            android:layout_marginRight="110dp"
+            android:layout_marginRight="60dp"
             android:scaleType="fitCenter"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
@@ -103,40 +104,57 @@
 
         <ImageButton
             android:id="@+id/deleteButton2"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_marginEnd="5dp"
+            android:padding="2.5dp"
             android:background="@color/myWhite"
             android:contentDescription="@string/deletebutton"
             android:focusable="true"
             android:orientation="horizontal"
             android:scaleType="fitCenter"
-            android:src="@drawable/delete3"
+            android:src="@drawable/delete"
             android:layout_marginRight="5dp" />
 
         <ImageButton
             android:id="@+id/addButton2"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:background="@color/myWhite"
-            android:layout_marginEnd="5dp"
-            android:layout_marginRight="5dp"
+
             android:contentDescription="@string/plusbutton"
             android:focusable="true"
             android:orientation="horizontal"
             android:scaleType="centerCrop"
-            android:src="@drawable/plus3"
+            android:src="@drawable/add"
             />
         <ImageButton
+            android:id="@+id/editCellButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@color/myWhite"
+            android:layout_marginEnd="5dp"
+            android:layout_marginRight="5dp"
+            android:contentDescription="@string/editItem"
+            android:focusable="true"
+            android:orientation="horizontal"
+            android:scaleType="centerCrop"
+            android:src="@drawable/edit"
+            android:visibility="gone"
+            />
+
+        <ImageButton
+            android:layout_marginStart="60dp"
             android:id="@+id/nextButton2"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:background="@color/myWhite"
             android:contentDescription="nextButton"
             android:focusable="true"
             android:orientation="horizontal"
             android:scaleType="centerCrop"
-            android:src="@drawable/next1" />
+            android:src="@drawable/next"
+            android:layout_marginLeft="60dp" />
     </LinearLayout>
 </LinearLayout>
 
