@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.e.tmt">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -12,7 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".cabinet.cabinetFindActivity"></activity>
+
+        <activity android:name=".cabinet.cabinetFindActivity" />
         <activity android:name=".cards" />
         <activity android:name=".cabinet.cabinet" />
         <activity android:name=".memo.lamp" />

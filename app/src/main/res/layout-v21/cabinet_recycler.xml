@@ -44,7 +44,7 @@
         </LinearLayout-->
 
         <TextView
-            android:id="@+id/cabinetName"
+            android:id="@+id/cabinetName1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fontFamily="@font/uhbeenamsoyoung_bold"
@@ -55,14 +55,14 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/etc"
+            android:id="@+id/etc1"
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:fontFamily="@font/uhbeenamsoyoung_bold"
             android:text="예시"
             android:gravity="center"
-            app:layout_constraintTop_toBottomOf="@id/cabinetName"
-            app:layout_constraintLeft_toLeftOf="@id/cabinetName" />
+            app:layout_constraintTop_toBottomOf="@id/cabinetName1"
+            app:layout_constraintLeft_toLeftOf="@id/cabinetName1" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

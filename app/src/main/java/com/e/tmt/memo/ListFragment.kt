@@ -18,9 +18,9 @@ class ListFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_list, container, false)
 
-        activityLamp?.buttonEffect2(view.addButton)
-        activityLamp?.buttonEffect2(view.deleteButton)
-        activityLamp?.buttonEffect2(view.lightOn)
+        activityLamp?.buttonEffect(view.addButton)
+        activityLamp?.buttonEffect(view.deleteButton)
+        activityLamp?.buttonEffect(view.lightOn)
 
         view.addButton.setOnClickListener{activityLamp?.goAdd()}
         view.deleteButton.setOnClickListener{ activityLamp?.deleteMemo()}

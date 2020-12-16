@@ -9,7 +9,7 @@ import java.util.*
 
 class CabinetApi {
     companion object{
-        val DOMAIN = "http://34.64.143.75:1880/"
+        val DOMAIN = "https://safelygogoschool.app/"
     }
 }
 
@@ -19,8 +19,9 @@ interface CabinetService {
     fun getStuff(): Call<List<Stuff>>
     //fun get(): Call<Thing>
 
-    @GET("item/{cell}")
-    fun getItems1(@Path("cell") cell: String): Call <List<String>>
+    @GET("lastItem")
+    fun getLastItem(): Call<List<Stuff>>
+
 
 
     @DELETE("cabinet/{name}")
@@ -29,11 +30,44 @@ interface CabinetService {
     @DELETE("cell/{name}")
     fun deleteCell(@Path("name") name: String): Call<ResponseBody>
 
+    @DELETE("item/{name}")
+    fun deleteItem(@Path("name") name: String): Call<ResponseBody>
+
+    @FormUrlEncoded
+    @POST("item")
+    fun postItem(
+        @Field("cabinet") cabinet: String,
+        @Field("cell") cell: String,
+        @Field("item") item: String,
+        @Field("etc") etc: String
+    ): Call<ResponseBody>
+
     @FormUrlEncoded
     @POST("item/send")
     fun sendToCabinet(
         @Field("selected") selected: List<Int>
     ): Call<ResponseBody>
 
+
+    @PUT("cabinet/{name}")
+    // @FormUrlEncoded
+    fun putCabinet(
+        @Path("name") name: String,
+        @Body Ids: List<Int>
+    ): Call<ResponseBody>
+
+    @PUT("cell/{name}")
+    // @FormUrlEncoded
+    fun putCell(
+        @Path("name") name: String,
+        @Body Ids: List<Int>
+    ): Call<ResponseBody>
+
+    @PUT("item/{id}")
+    // @FormUrlEncoded
+    fun putItem(
+        @Path("id")id: Int,
+        @Body stuff: Stuff
+    ): Call<ResponseBody>
 
 }

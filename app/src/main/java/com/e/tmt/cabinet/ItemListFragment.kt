@@ -14,10 +14,7 @@ import kotlinx.android.synthetic.main.fragment_item_list.view.*
 class ItemListFragment : Fragment() {
     private var activityCabinet: cabinet? = null
 
-    override fun onResume() {
-        activityCabinet?.getItems()
-        super.onResume()
-    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,7 +23,17 @@ class ItemListFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_item_list, container, false)
 
         activityCabinet?.buttonEffect(view.backButton5)
+        activityCabinet?.buttonEffect(view.deleteButton5)
+        activityCabinet?.buttonEffect(view.addButton5)
+        activityCabinet?.buttonEffect(view.editItemButton)
+
         view.backButton5.setOnClickListener { activityCabinet?.goBack() }
+        view.deleteButton5.setOnClickListener { activityCabinet?.deleteItem() }
+        view.addButton5.setOnClickListener { activityCabinet?.goAddItem() }
+        view.editItemButton.setOnClickListener {
+            activityCabinet?.goEditItem()
+           //activityCabinet?.goEditPreset()
+        }
 
         activityCabinet?.getItems()
         view.itemList.adapter = activityCabinet?.itemAdapter

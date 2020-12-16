@@ -7,11 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.e.tmt.R
+import kotlinx.android.synthetic.main.fragment_add_memo.view.*
 import kotlinx.android.synthetic.main.fragment_item_add.view.*
 
 
 class ItemAddFragment : Fragment() {
-
     var activityCabinet: cabinet? = null
 
     override fun onCreateView(
@@ -20,7 +20,19 @@ class ItemAddFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater!!.inflate(R.layout.fragment_item_add, container, false)
+        activityCabinet?.buttonEffect(view.backButton3)
+        activityCabinet?.buttonEffect(view.saveStuffButton)
 
+        view.addCabinet.text = activityCabinet?.addCA
+        view.addCell.text = activityCabinet?.addCE
+        view.backButton3.setOnClickListener { activityCabinet?.goBack() }
+        view.saveStuffButton.setOnClickListener {
+            activityCabinet?.addIT = view.addItem.text.toString()
+            activityCabinet?.addETC = view.addEtc.text.toString()
+
+            activityCabinet?.postItem()
+            activityCabinet?.goBack()
+        }
 
         return view
 

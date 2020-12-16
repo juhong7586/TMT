@@ -43,30 +43,30 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    private var buttonClick = AlphaAnimation(1f, 0.4f)
+    private var buttonBack = AlphaAnimation(0.4f, 1f)
+
     @SuppressLint("ClickableViewAccessibility")
-fun buttonEffect(button: View) {
-    button.setOnTouchListener { v, event ->
-        when (event.action) {
+    fun buttonEffect(button: View) {
+        buttonClick.duration = 200
+        buttonBack.duration = 200
+        button.setOnTouchListener { v, event ->
+            when (event.action) {
 
-            MotionEvent.ACTION_DOWN -> {
-                v.startAnimation(buttonClick)
-                v.background.setColorFilter(
-                    Color.parseColor("#464545"),
-                    PorterDuff.Mode.SRC_ATOP
-                )
-
-                v.invalidate()
+                MotionEvent.ACTION_DOWN -> {
+                    v.startAnimation(buttonClick)
+                    v.invalidate()
+                }
+                MotionEvent.ACTION_UP -> {
+                    v.startAnimation(buttonBack)
+                    v.invalidate()
+                }
             }
-            MotionEvent.ACTION_UP -> {
-                v.background.clearColorFilter()
-                v.invalidate()
-            }
+            false
         }
-        false
-    }
-}
 
-private val buttonClick = AlphaAnimation(1f, 0.8f)
+    }
+
 }
 
 

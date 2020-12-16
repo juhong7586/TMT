@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.e.tmt.R
@@ -22,10 +23,6 @@ class CabinetListFragment : Fragment() {
     }
 
 
-    override fun onStart() {
-        activityCabinet?.getStuff()
-        super.onStart()
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,14 +33,20 @@ class CabinetListFragment : Fragment() {
         activityCabinet?.buttonEffect(view.addButton1)
         activityCabinet?.buttonEffect(view.backButton1)
         activityCabinet?.buttonEffect(view.deleteButton1)
+        activityCabinet?.buttonEffect(view.nextButton1)
+        activityCabinet?.buttonEffect(view.editCabinetButton)
 
         view.backButton1.setOnClickListener { activityCabinet?.goBack() }
         view.deleteButton1.setOnClickListener { activityCabinet?.deleteCabinet() }
         view.addButton1.setOnClickListener { activityCabinet?.showAddCabinet() }
         view.nextButton1.setOnClickListener {
-            activityCabinet?.goCellList()
+            if(view.theCabinetName.text != ""){
+                activityCabinet?.goCellList()
+            }else{
+                Toast.makeText(context, "서랍장을 선택해주세요.", Toast.LENGTH_SHORT).show()
+            }}
 
-        }
+        view.editCabinetButton.setOnClickListener { activityCabinet?.showEditCabinet() }
 
         return view
     }

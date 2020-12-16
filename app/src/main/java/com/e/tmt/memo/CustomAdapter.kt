@@ -114,7 +114,7 @@ class CustomAdapter : RecyclerView.Adapter<CustomAdapter.MemoHolder>() {
                         R.anim.fade_in,
                         R.anim.fragment_fade_exit
                     )
-                    .replace(R.id.fragmentLayout, detailFragment)
+                    .add(R.id.fragmentLayout, detailFragment)
                     .addToBackStack("detail")
                     .commit()
             }

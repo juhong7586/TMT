@@ -48,7 +48,6 @@
     <string name="content1">Content</string>
     <string name="memolamp">메모램프</string>
     <string name="findItem">물건찾기</string>
-    <string name="whereIsIt">그게 어디있더라...</string>
     <string name="where">그게 어디 있더라...?</string>
     <string name="manage">관리하기</string>
     <string name="cabinetTitle">그 서랍장</string>
@@ -57,5 +56,19 @@
     <string name="cabinet1">서랍장</string>
     <string name="space">공간</string>
     <string name="sendtocabinet">sendToCabinet</string>
+    <string name="manageCabinet">서랍장 관리</string>
+    <string name="theCabinet">선택한 서랍장:</string>
+    <string name="nextbutton">nextButton</string>
+    <string name="editItem">수정</string>
+    <string name="example">예시</string>
+    <string name="ofcabinet">서랍장의</string>
+    <string name="ofcell">공간 속</string>
+    <string name="ofStuff">물건은</string>
+    <string name="ofEtc">기타 사항</string>
+    <string name="addCabinet">사물함 추가</string>
+    <string name="inserName">이름 입력</string>
+    <string name="back">back</string>
+    <string name="before">before</string>
+    <string name="save">save</string>
 
 </resources>

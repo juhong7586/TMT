@@ -29,7 +29,9 @@
             tools:layout_conversion_absoluteHeight="57dp"
             tools:layout_conversion_absoluteWidth="178dp"
             android:layout_marginStart="10dp" />
-        <SearchView
+
+
+    <SearchView
             android:id="@+id/searchStuff"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -120,11 +122,11 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
     <ImageButton
-        android:id="@+id/toCabinet"
+        android:id="@+id/checkList"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/led2"
+        android:src="@drawable/next"
         android:background="@color/myWhite"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginEnd="20dp"

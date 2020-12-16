@@ -26,12 +26,12 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class lamp : AppCompatActivity() {
 
-    val retrofit = Retrofit.Builder()
+    private val retrofit = Retrofit.Builder()
         .baseUrl(ServerApi.DOMAIN)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
-    val TmtService = retrofit.create(com.e.tmt.memo.TmtService::class.java)
+    private val TmtService = retrofit.create(com.e.tmt.memo.TmtService::class.java)
     val adapter = CustomAdapter()
 
     var addMT: String = ""
@@ -58,21 +58,6 @@ class lamp : AppCompatActivity() {
     }
 
     //페이지 이동
-    fun goDetail() {
-        val detailFragment = DetailFragment()
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction
-            .setCustomAnimations(
-                R.anim.fragment_open_enter,
-                R.anim.fade_out,
-                R.anim.fade_in,
-                R.anim.fragment_fade_exit
-            )
-            .replace(R.id.fragmentLayout, detailFragment)
-            .addToBackStack("detail")
-            .commit()
-    }
-
     fun goEdit(){
         val editFragment = EditFragment()
         val transaction = supportFragmentManager.beginTransaction()
@@ -179,7 +164,7 @@ class lamp : AppCompatActivity() {
                 adapter.notifyDataSetChanged()
                 Toast.makeText(
                     baseContext,
-                    "데이터를 수정했습니다.",
+                    "메모를 수정했습니다.",
                     Toast.LENGTH_SHORT
                 ).show()
             }
@@ -330,13 +315,6 @@ class lamp : AppCompatActivity() {
     fun selectMemo(): Memo? {
         var mMemo: Memo? = null
         mMemo = adapter.listData[adapter.detailNo]
-        //for ( i in 0 until adapter.listData.size){
-        //    mMemo = adapter.listData[i]
-        //    if(adapter.detailNo == mMemo.id){
-        //        adapter.selected = adapter.listData[i]
-        //    }
-        // }
-        //return adapter.selected
         return mMemo
     }
 
@@ -374,58 +352,27 @@ class lamp : AppCompatActivity() {
 
     }
 
-    //button effects
+    private var buttonClick = AlphaAnimation(1f, 0.4f)
+    private var buttonBack = AlphaAnimation(0.4f, 1f)
+
     @SuppressLint("ClickableViewAccessibility")
     fun buttonEffect(button: View) {
+        buttonClick.duration = 200
+        buttonBack.duration = 200
         button.setOnTouchListener { v, event ->
             when (event.action) {
 
                 MotionEvent.ACTION_DOWN -> {
                     v.startAnimation(buttonClick)
-                    //v.alpha to 0.5
-                    v.background.setColorFilter(
-                        Color.parseColor("#D7D7D7"),
-                        PorterDuff.Mode.SRC_ATOP
-                    )
-
                     v.invalidate()
                 }
                 MotionEvent.ACTION_UP -> {
-                    v.background.clearColorFilter()
+                    v.startAnimation(buttonBack)
                     v.invalidate()
                 }
             }
             false
         }
     }
-
-    private val buttonClick = AlphaAnimation(1f, 0.8f)
-
-    @SuppressLint("ClickableViewAccessibility")
-    fun buttonEffect2(button: View) {
-        button.setOnTouchListener { v, event ->
-            when (event.action) {
-
-                MotionEvent.ACTION_DOWN -> {
-                    v.startAnimation(buttonClick)
-                    //v.alpha to 0.5
-                    v.background.setColorFilter(
-                        Color.parseColor("#F5F5F5"),
-                        PorterDuff.Mode.SRC_ATOP
-                    )
-
-                    v.invalidate()
-                }
-                MotionEvent.ACTION_UP -> {
-                    v.background.clearColorFilter()
-                    v.invalidate()
-                }
-            }
-            false
-        }
-    }
-
-
-
 
 }

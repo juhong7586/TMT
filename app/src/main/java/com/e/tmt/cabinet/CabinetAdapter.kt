@@ -9,21 +9,26 @@ import androidx.recyclerview.widget.RecyclerView
 import com.e.tmt.R
 import com.e.tmt.memo.lamp
 import kotlinx.android.synthetic.main.cabinet_recycler.view.*
+import kotlinx.android.synthetic.main.cabinet_recycler.view.cabinetName1
+import kotlinx.android.synthetic.main.cabinet_recycler.view.itemCard
+import kotlinx.android.synthetic.main.cabinet_recycler2.view.*
 import kotlinx.android.synthetic.main.stuff_recycler.view.*
 import kotlinx.coroutines.withContext
 import kotlin.coroutines.coroutineContext
 
-class CabinetAdapter(inputList: MutableList<String>, var inputType: String): RecyclerView.Adapter<CabinetAdapter.StuffHolder>(){
+class CabinetAdapter(inputList: MutableList<String>, var inputType: String, var itemClickHandler: (Int, String) -> Unit): RecyclerView.Adapter<CabinetAdapter.StuffHolder>(){
     var stuffList = mutableListOf<Stuff>()
     var selectedList = inputList
     var selecCabiList = mutableListOf<Stuff>()
 
     var selectedNum: Int? = null
     var selectedOne: String = ""
+    var selectedId: Int? = null
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StuffHolder {
         var itemView: Any
+
         if (inputType == "item"){
             itemView = LayoutInflater.from(parent.context)
                 .inflate(R.layout.cabinet_recycler2, parent, false)
@@ -37,13 +42,11 @@ class CabinetAdapter(inputList: MutableList<String>, var inputType: String): Rec
 
     override fun getItemCount(): Int {
         return selectedList.size
-        //return cabinetList.size
     }
     override fun onBindViewHolder(holder: StuffHolder, position: Int) {
-        //var stuff = stuffList.get(holder.adapterPosition)
-        val cabinet = selectedList[holder.adapterPosition]
+        var cabinet = selectedList[holder.adapterPosition]
         holder.setCabinet(cabinet)
-        //holder.cabinetCheck.isChecked = false
+
 
     }
 
@@ -53,35 +56,44 @@ class CabinetAdapter(inputList: MutableList<String>, var inputType: String): Rec
         //    itemView.cabinetName.text = stuff.cabinetName
         //}
         fun setCabinet(cabinetText: String){
-            itemView.cabinetName.text = cabinetText
+
 
             if(inputType == "item"){
-                if(stuffList[layoutPosition].etc != null) {
-                    itemView.etc.text = stuffList[layoutPosition].etc
-                }
-            }
+                    itemView.cabinetName.text = cabinetText
+                    itemView.etc.text = stuffList[adapterPosition].etc
+
+            }else{itemView.cabinetName1.text = cabinetText}
         }
 
         init{
-
            itemView.itemCard.setOnClickListener {
-               if(this@CabinetAdapter.inputType == "cabinet") {
+               if (inputType == "cabinet") {
                    selectedNum = adapterPosition
                    selectedOne = selectedList[selectedNum!!]
                    (stuffList.filter { it.cabinetName == selectedOne } as MutableList<Stuff>).also {
                        selecCabiList = it
+                       itemClickHandler.invoke(adapterPosition, "cabinet")
                    }
-
-               }else if(this@CabinetAdapter.inputType == "cell"){
+               }
+               else if (inputType == "cell") {
                    selectedNum = adapterPosition
                    selectedOne = selectedList[selectedNum!!]
                    (stuffList.filter { it.cellName == selectedOne } as MutableList<Stuff>).also {
                        selecCabiList = it
+                       itemClickHandler.invoke(adapterPosition, "cell")
                    }
-
                }
+               else if (inputType == "item") {
+                   selectedNum = adapterPosition
+                   selectedOne = selectedList[selectedNum!!]
+                   (stuffList.filter { it.itemName == selectedOne } as MutableList<Stuff>).also {
+                       selecCabiList = it
+                       itemClickHandler.invoke(adapterPosition, "item")
+                   }
+               }
+
+
                notifyDataSetChanged()
-               Toast.makeText(itemView.context, selectedOne, Toast.LENGTH_SHORT).show()
 
             }
         }

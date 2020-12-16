@@ -6,15 +6,19 @@ import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.AttributeSet
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MotionEvent
 import android.view.View
 import android.view.animation.AlphaAnimation
 import android.widget.*
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.e.tmt.R
 import com.e.tmt.memo.ServerApi
 import kotlinx.android.synthetic.main.activity_cabinet_find.*
+import kotlinx.android.synthetic.main.fragment_dialog_custom.view.*
+import kotlinx.android.synthetic.main.fragment_dialog_item_send.view.*
 import kotlinx.android.synthetic.main.stuff_recycler.*
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -35,6 +39,7 @@ class cabinetFindActivity : AppCompatActivity() {
     var cellList = mutableListOf<String>()
 
     var selectedItems = mutableListOf<Stuff>()
+    var sendingItems = mutableListOf<Stuff>()
     var selectedCabinet: String = ""
     var selectedCell: String = ""
     var allStuffNames = mutableListOf<String>()
@@ -53,16 +58,16 @@ class cabinetFindActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cabinet_find)
         activateCabinet()
-        buttonEffect(toCabinet)
-        toCabinet.setOnClickListener {
-            sendToCabinet()
+        buttonEffect(checkList)
+        checkList.setOnClickListener {
+            prepareItems()
         }
         searchView = findViewById(R.id.searchStuff)
         letsSearch()
 
     }
 
-    private fun letsSearch(){
+    fun letsSearch(){
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
 
@@ -71,7 +76,6 @@ class cabinetFindActivity : AppCompatActivity() {
                 //stuffListAdapter.notifyDataSetChanged()
                 findingOne = query!!
                 //stuffListAdapter.filter.filter(findingOne)
-                Toast.makeText(this@cabinetFindActivity, stuffListAdapter.stuffList.size.toString(), Toast.LENGTH_SHORT).show()
                 stuffListAdapter.filter.filter(findingOne)
                 return true
             }
@@ -85,14 +89,14 @@ class cabinetFindActivity : AppCompatActivity() {
     }
 
 
-    private fun activateCabinet() {
+    fun activateCabinet() {
 
         cabinetList.add(" -선택하세요-   ▼")
 
         cabinetService.getStuff().enqueue(object : Callback<List<Stuff>> {
 
             override fun onResponse(call: Call<List<Stuff>>, response: Response<List<Stuff>>) {
-                allStuffs = response.body() as MutableList<Stuff>
+                this@cabinetFindActivity.allStuffs = response.body() as MutableList<Stuff>
 
                 selectedItems = allStuffs
                 for (i in selectedItems.indices) {
@@ -105,9 +109,11 @@ class cabinetFindActivity : AppCompatActivity() {
                     android.R.layout.simple_list_item_1,
                     cabinetList
                 ).also { cabinetListAdapter = it }
+
                 spinnerCabinet.adapter = cabinetListAdapter
 
                 stuffListAdapter = ItemAdapter(allStuffs)
+
                 findingItems.adapter = stuffListAdapter
                 stuffListAdapter.stuffList = allStuffs
                 LinearLayoutManager(this@cabinetFindActivity).also {
@@ -193,6 +199,21 @@ class cabinetFindActivity : AppCompatActivity() {
         }
     }
 
+    fun prepareItems(){
+        val mDialogView = LayoutInflater.from(this@cabinetFindActivity).inflate(R.layout.fragment_dialog_item_send, null)
+        val mBuilder = AlertDialog.Builder(this@cabinetFindActivity)
+            .setView(mDialogView)
+        val mAlertDialog = mBuilder.show()
+        var theNames = getSelectedNames().toString()
+        theNames = theNames.substring(1, theNames.length-1) as String
+        mDialogView.sendingItemList.text = theNames
+        mDialogView.backButton6.setOnClickListener { mAlertDialog.dismiss() }
+        mDialogView.toCabinet.setOnClickListener {
+            sendToCabinet()
+            mAlertDialog.dismiss()
+        }
+    }
+
     private var buttonClick = AlphaAnimation(1f, 0.4f)
     private var buttonBack = AlphaAnimation(0.4f, 1f)
 
@@ -221,10 +242,11 @@ class cabinetFindActivity : AppCompatActivity() {
         if (sendNo.isEmpty()) {
             Toast.makeText(
                 baseContext,
-                "램프에 전송할 메모를 선택해주세요.",
+                "표시할 물건을 선택해주세요.",
                 Toast.LENGTH_SHORT
             ).show()
         } else {
+            Toast.makeText(this@cabinetFindActivity, sendNo.toString(), Toast.LENGTH_SHORT).show()
             val sendMemos = cabinetService.sendToCabinet(sendNo)
             sendMemos.enqueue(object : Callback<ResponseBody> {
                 override fun onResponse(
@@ -260,12 +282,20 @@ class cabinetFindActivity : AppCompatActivity() {
 
     private fun getSelectedList(): MutableList<Int> {
         val selected = mutableListOf<Int>()
-        val selecteditems = selectedItems
-        for (i in 0 until selecteditems.size) if (selecteditems[i].selected == 1) {
-            selected.add(selecteditems[i].id)
+        sendingItems = stuffListAdapter.selectedList
+        for (i in 0 until sendingItems.size) if (sendingItems[i].selected == 1) {
+            selected.add(sendingItems[i].id)
         }
         return selected
     }
 
+    private fun getSelectedNames(): MutableList<String>{
+        val selected = mutableListOf<String>()
+        sendingItems = stuffListAdapter.selectedList
+        for (i in 0 until sendingItems.size) if (sendingItems[i].selected == 1) {
+            selected.add(sendingItems[i].itemName)
+        }
+        return selected
+    }
 
 }
